@@ -3,13 +3,13 @@ import { Route, createBrowserRouter, createRoutesFromElements } from 'react-rout
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './components/Home'
-import './common.css'
+import './common.scss'
 
 const Root = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='main'>
         <Outlet />
       </main>
       <Footer />
