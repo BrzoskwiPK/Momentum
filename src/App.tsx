@@ -1,11 +1,32 @@
-import './App.css';
+import { Outlet, RouterProvider } from 'react-router-dom'
+import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Home from './components/Home'
+import './Common.css'
 
-function App() {
+const Root = () => {
   return (
-    <div className="App">
-      Reactinho
-    </div>
-  );
+    <>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  )
 }
 
-export default App;
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Root />}>
+      <Route index element={<Home />} />
+    </Route>
+  )
+)
+
+const App = () => {
+  return <RouterProvider router={router} />
+}
+
+export default App
