@@ -1,7 +1,11 @@
 import { FunctionComponent } from 'react'
 
 const Footer: FunctionComponent = () => {
-  return <footer className='footer'>Footer</footer>
+  return (
+    <footer className='bg-gray-800 w-full h-12 flex items-center justify-center text-white'>
+      Copyright &copy; 2023 brzoskwi
+    </footer>
+  )
 }
 
 export default Footer
