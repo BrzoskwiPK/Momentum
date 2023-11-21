@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const RouteError = () => {
   return (
-    <main className='w-full h-screen flex flex-col items-center justify-center'>
+    <main className='row-span-full col-span-full flex flex-col items-center justify-center'>
       <aside>OOPS!</aside>
       <section className='flex flex-col items-center justify-center'>
         <h2 className='text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight'>
