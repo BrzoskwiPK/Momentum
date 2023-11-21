@@ -57,3 +57,8 @@ export type Company = {
   catchPhrase: string
   bs: string
 }
+
+export type UserAccount = {
+  username: string
+  email: string
+} | null
