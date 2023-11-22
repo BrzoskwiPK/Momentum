@@ -1,6 +1,7 @@
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
-const RouteError = () => {
+const RouteError: FC = () => {
   return (
     <main className='row-span-full col-span-full flex flex-col items-center justify-center'>
       <aside>OOPS!</aside>

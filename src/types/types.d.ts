@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export type Post = {
   userId: number
   id: number
@@ -62,3 +64,11 @@ export type UserAccount = {
   username: string
   email: string
 } | null
+
+export type NavigationItem = {
+  name: string
+  href: string
+  iconBase: ReactNode
+  iconActive: ReactNode
+  current?: boolean
+}

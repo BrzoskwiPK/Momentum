@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import { FC } from 'react'
 import { classNames } from '../utils/helpers'
 import { Link, useLocation } from 'react-router-dom'
 import { NavigationItem } from '../types/types'
@@ -12,7 +12,7 @@ import {
 import CircleIcon from '../components/CircleIcon'
 import { IoIosLogOut } from 'react-icons/io'
 
-const Navigation: FunctionComponent = () => {
+const Navigation: FC = () => {
   const location = useLocation()
 
   const navigation: NavigationItem[] = [

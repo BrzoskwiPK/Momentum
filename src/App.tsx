@@ -1,31 +1,84 @@
-import { Outlet, RouterProvider } from 'react-router-dom'
-import { Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import {
+  Outlet,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom'
 import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './components/Home'
 import './common.scss'
 import RouteError from './components/RouteError'
+import Profile from './components/Profile'
+import { FC, useContext } from 'react'
+import Feed from './components/Feed'
+import ProtectedRoute from './components/ProtectedRoute'
+import UserContextProvider from './components/UserContextProvider'
+import SignIn from './components/SignIn'
+import UserContext from './contexts/user-context'
+import { isAuthenticated } from './utils/helpers'
+import Logout from './components/Logout'
 
-const Root = () => {
+const Layout: FC = () => {
+  const userContext = useContext(UserContext)
+  const authenticatedUser = isAuthenticated(userContext?.user!)
+
   return (
-    <div className='flex flex-col h-screen'>
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+    <>
+      {authenticatedUser ? <Header /> : null}
+      <main className='w-full'>
+        <Outlet />
+      </main>
+    </>
   )
 }
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Root />} errorElement={<RouteError />}>
-      <Route index element={<Home />} />
+    <Route path='/' element={<Layout />}>
+      <Route index element={<SignIn />} />
+      <Route
+        path='/feed'
+        element={
+          <ProtectedRoute>
+            <Feed />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/explore'
+        element={
+          <ProtectedRoute>
+            <Feed />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/profile'
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/logout'
+        element={
+          <ProtectedRoute>
+            <Logout />
+          </ProtectedRoute>
+        }
+      />
+      <Route path='*' element={<RouteError />} />
     </Route>
   )
 )
 
-const App = () => {
-  return <RouterProvider router={router} />
+const App: FC = () => {
+  return (
+    <UserContextProvider>
+      <RouterProvider router={router} />
+    </UserContextProvider>
+  )
 }
 
 export default App

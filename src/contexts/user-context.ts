@@ -1,6 +1,11 @@
-import { createContext } from 'react'
+import { Dispatch, SetStateAction, createContext } from 'react'
 import { UserAccount } from '../types/types'
 
-const UserContext = createContext<UserAccount>(null)
+interface UserContextType {
+  user: UserAccount | null
+  setUser: Dispatch<SetStateAction<UserAccount>>
+}
+
+const UserContext = createContext<UserContextType | null>(null)
 
 export default UserContext
