@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../utils/constants'
-import { User } from '../types/types'
+import { Album, User } from '../types/types'
 
 // GET https://jsonplaceholder.typicode.com/users
 export const fetchAllUsers = async (): Promise<User[]> => {
@@ -50,6 +50,17 @@ export const updateUser = async (userId: number, updatedUser: User): Promise<Use
 export const deleteUser = async (userId: number): Promise<void> => {
   try {
     await axios.delete(`${API_BASE_URL}/users/${userId}`)
+  } catch (error) {
+    throw error
+  }
+}
+
+// GET https://jsonplaceholder.typicode.com/users/:id/albums
+export const fetchUserAlbums = async (userId: number): Promise<Album[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/users/${userId}/albums`)
+
+    return response.data
   } catch (error) {
     throw error
   }
