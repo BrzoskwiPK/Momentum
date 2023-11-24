@@ -28,7 +28,11 @@ const SignIn: FC = () => {
       return
     }
 
-    userContext?.setUser({ email: authenticatedUser.email, username: authenticatedUser.username })
+    userContext?.setUser({
+      email: authenticatedUser.email,
+      username: authenticatedUser.username,
+      id: authenticatedUser.id,
+    })
 
     setFormError('')
     redirectToDashboard()

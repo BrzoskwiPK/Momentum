@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom'
 
 const RouteError: FC = () => {
   return (
-    <main className='row-span-full col-span-full flex flex-col items-center justify-center'>
-      <aside>OOPS!</aside>
+    <main className='w-full h-full flex flex-col items-center justify-center'>
       <section className='flex flex-col items-center justify-center'>
-        <h2 className='text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight'>
-          PAGE NOT FOUND!
-        </h2>
+        <p className='md:text-9xl text-7xl font-bold leading-7 text-gray-900 sm:truncate sm:tracking-tight'>
+          404
+        </p>
+        <p className='text-lg font-semibold my-5 text-center'>
+          Hey captain! <br /> Looks like you're heading to a wrong planet!
+        </p>
         <Link
-          to='/'
+          to='/feed'
           type='button'
           className='inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-          BACK TO HOMEPAGE
+          Go back
         </Link>
       </section>
     </main>

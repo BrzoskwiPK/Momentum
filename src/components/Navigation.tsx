@@ -1,7 +1,7 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { classNames } from '../utils/helpers'
 import { Link, useLocation } from 'react-router-dom'
-import { NavigationItem } from '../types/types'
+import { NavigationItem, UserAccount } from '../types/types'
 import {
   IoHomeOutline,
   IoHomeSharp,
@@ -11,9 +11,12 @@ import {
 } from 'react-icons/io5'
 import CircleIcon from '../components/CircleIcon'
 import { IoIosLogOut } from 'react-icons/io'
+import UserContext from '../contexts/user-context'
 
 const Navigation: FC = () => {
   const location = useLocation()
+  const userContext = useContext(UserContext)
+  const userCredentials: UserAccount = userContext?.user!
 
   const navigation: NavigationItem[] = [
     {
@@ -31,8 +34,8 @@ const Navigation: FC = () => {
     {
       name: 'Profile',
       href: '/profile',
-      iconBase: <CircleIcon imageUrl='./assets/profile.jpg' />,
-      iconActive: <CircleIcon imageUrl='./assets/profile.jpg' />,
+      iconBase: <CircleIcon imageUrl={`./assets/profile-${userCredentials.id}.jpg`} />,
+      iconActive: <CircleIcon imageUrl={`./assets/profile-${userCredentials.id}.jpg`} />,
       current: true,
     },
     {
@@ -55,7 +58,7 @@ const Navigation: FC = () => {
             to={item.href}
             className={classNames(
               item.current ? 'font-bold text-white' : 'font-medium text-gray-300 mt-0.5',
-              'ml-1 md:ml-2 flex flex-row justify-start align-middle text-center hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-sm font-medium w-11/12 hover:cursor-pointer'
+              'ml-1 md:ml-2 flex flex-row justify-start align-middle text-center hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-sm font-medium w-11/12 hover:cursor-pointer transition duration-300 ease-in-out'
             )}
             aria-current={item.current ? 'page' : undefined}
             style={{ marginTop: index === navigation.length - 1 ? 'auto' : undefined }}>
