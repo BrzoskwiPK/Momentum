@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../utils/constants'
-import { Album, User } from '../types/types'
+import { Album, Todo, User } from '../types/types'
 
 // GET https://jsonplaceholder.typicode.com/users
 export const fetchAllUsers = async (): Promise<User[]> => {
@@ -59,6 +59,17 @@ export const deleteUser = async (userId: number): Promise<void> => {
 export const fetchUserAlbums = async (userId: number): Promise<Album[]> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/users/${userId}/albums`)
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+// GET https://jsonplaceholder.typicode/users/:id/todos
+export const fetchUserTodos = async (userId: number): Promise<Todo[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/users/${userId}/todos`)
 
     return response.data
   } catch (error) {

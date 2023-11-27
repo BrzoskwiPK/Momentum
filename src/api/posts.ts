@@ -55,6 +55,7 @@ export const deletePost = async (postId: number): Promise<void> => {
   }
 }
 
+// GET https://jsonplaceholder.typicode/posts?userId=:id
 export const fetchUserPosts = async (userId: number): Promise<Post[]> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/posts?userId=${userId}`)

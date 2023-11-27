@@ -31,13 +31,14 @@ const UserProfileInfo: FC<UserProfileInfoProps> = ({ user }: UserProfileInfoProp
           </p>
           {user?.address && (
             <p className='hidden xl:block'>
-              From: {user.address.street}, {user.address.suite}, {user.address.city},{' '}
-              {user.address.zipcode}
+              <strong>From:</strong> {user.address.street}, {user.address.suite},{' '}
+              {user.address.city}, {user.address.zipcode}
             </p>
           )}
           {user?.company && (
             <p className='hidden xl:block'>
-              Company: {user.company.name} - {user.company.catchPhrase}, {user.company.bs}
+              <strong>Company:</strong> {user.company.name} - {user.company.catchPhrase},{' '}
+              {user.company.bs}
             </p>
           )}
         </div>

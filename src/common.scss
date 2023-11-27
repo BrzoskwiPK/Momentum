@@ -9,6 +9,7 @@
   font-family: Inter;
 }
 
-.post:nth-last-child(-n + 2) {
+.post:nth-last-child(-n + 2),
+.todo-item:nth-last-child(-n + 2) {
   padding-bottom: 20px;
 }
