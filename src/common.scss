@@ -8,3 +8,7 @@
   padding: 0;
   font-family: Inter;
 }
+
+.post:nth-last-child(-n + 2) {
+  padding-bottom: 20px;
+}
