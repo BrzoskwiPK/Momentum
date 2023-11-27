@@ -16,7 +16,7 @@ import UserContextProvider from './components/UserContextProvider'
 import SignIn from './components/SignIn'
 import UserContext from './contexts/user-context'
 import { isAuthenticated } from './utils/helpers'
-import Logout from './components/Logout'
+import Modal from './components/Modal'
 
 const Layout: FC = () => {
   const userContext = useContext(UserContext)
@@ -25,7 +25,7 @@ const Layout: FC = () => {
   return (
     <>
       {authenticatedUser ? <Header /> : null}
-      <main className='w-full'>
+      <main className='w-full h-full'>
         <Outlet />
       </main>
     </>
@@ -64,7 +64,7 @@ const router = createBrowserRouter(
         path='/logout'
         element={
           <ProtectedRoute>
-            <Logout />
+            <Modal title='Logout' text='Are you sure you want to logout?' type='logout' />
           </ProtectedRoute>
         }
       />

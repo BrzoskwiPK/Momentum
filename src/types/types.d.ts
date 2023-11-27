@@ -63,6 +63,7 @@ export type Company = {
 export type UserAccount = {
   username: string
   email: string
+  id: number
 } | null
 
 export type NavigationItem = {
