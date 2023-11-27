@@ -47,7 +47,7 @@ const Navigation: FC = () => {
   ]
 
   return (
-    <nav className='h-full bg-gray-800 text-white flex flex-col w-[72px] md:w-[244px]'>
+    <nav className='h-screen bg-gray-800 text-white flex flex-col w-[72px] md:w-[210px]'>
       <aside className='flex flex-row items-center justify-center w-full h-24'>
         <img className='h-10 w-auto' src='./assets/logo.png' alt='WSEI' />
       </aside>

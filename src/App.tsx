@@ -25,7 +25,7 @@ const Layout: FC = () => {
   return (
     <>
       {authenticatedUser ? <Header /> : null}
-      <main className='w-full h-full'>
+      <main className='w-full overflow-y-scroll'>
         <Outlet />
       </main>
     </>

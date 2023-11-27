@@ -3,7 +3,7 @@ import Navigation from './Navigation'
 
 const Header: FC = () => {
   return (
-    <header className='header w-[244px]'>
+    <header className='header w-72px md:w-[244px]'>
       <Navigation />
     </header>
   )
