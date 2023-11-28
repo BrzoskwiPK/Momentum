@@ -17,6 +17,8 @@ import SignIn from './components/SignIn'
 import UserContext from './contexts/user-context'
 import { isAuthenticated } from './utils/helpers'
 import Modal from './components/Modal'
+import SearchForm from './components/SearchForm'
+import Posts from './components/Posts'
 
 const Layout: FC = () => {
   const userContext = useContext(UserContext)
@@ -48,7 +50,15 @@ const router = createBrowserRouter(
         path='/explore'
         element={
           <ProtectedRoute>
-            <Feed />
+            <SearchForm />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/posts'
+        element={
+          <ProtectedRoute>
+            <Posts />
           </ProtectedRoute>
         }
       />

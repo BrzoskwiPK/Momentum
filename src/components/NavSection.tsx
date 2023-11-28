@@ -6,6 +6,7 @@ import {
   IoSearchSharp,
   IoLogOut,
 } from 'react-icons/io5'
+import { BiSolidMessageRounded, BiMessageRounded } from 'react-icons/bi'
 import { NavigationItem, UserAccount } from '../types/types'
 import CircleIcon from './CircleIcon'
 import { IoIosLogOut } from 'react-icons/io'
@@ -28,6 +29,12 @@ const NavSection: FC = () => {
       href: '/explore',
       iconBase: <IoSearchOutline className='text-2xl mr-2' />,
       iconActive: <IoSearchSharp className='text-2xl mr-2' />,
+    },
+    {
+      name: 'Posts',
+      href: '/posts',
+      iconBase: <BiMessageRounded className='text-2xl mr-2' />,
+      iconActive: <BiSolidMessageRounded className='text-2xl mr-2' />,
     },
     {
       name: 'Profile',
