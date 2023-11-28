@@ -15,6 +15,7 @@ const Profile: FC = () => {
   const [posts, setPosts] = useState<Post[] | null>(null)
   const [todos, setTodos] = useState<Todo[] | null>(null)
   const [selectedTab, setSelectedTab] = useState<'posts' | 'todos'>('posts')
+  const [shouldRenderGallery, setShouldRenderGallery] = useState<boolean>(false)
 
   const userContext = useContext(UserContext)
   const userCredentials: UserAccount = userContext?.user!
@@ -65,6 +66,14 @@ const Profile: FC = () => {
     if (userInfo) setUser(userInfo)
   }
 
+  const renderGallery = (albums: Album[]) => {
+    console.log('xd')
+  }
+
+  useEffect(() => {
+    if (shouldRenderGallery && albums) renderGallery(albums)
+  }, [shouldRenderGallery, albums])
+
   useEffect(() => {
     findUserInfo()
     findUserAlbums()
@@ -75,7 +84,7 @@ const Profile: FC = () => {
   return (
     <section className='w-full h-full flex flex-col justify-center items-center'>
       {user ? <UserProfileInfo user={user} /> : null}
-      <UserAlbums albums={albums || []} />
+      <UserAlbums setShouldRenderGallery={setShouldRenderGallery} albums={albums || []} />
       <div className='flex mb-4'>
         <button
           className={`mr-2 px-4 py-2 ${

@@ -1,12 +1,15 @@
 import { FC, useEffect, useState } from 'react'
 import { Album } from '../types/types'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import AlbumComponent from './AlbumComponent'
+import ChevronButton from './ChevronButton'
 
 interface UserAlbumsProps {
   albums: Album[]
+  setShouldRenderGallery: (shouldRender: boolean) => void
 }
 
-const UserAlbums: FC<UserAlbumsProps> = ({ albums }: UserAlbumsProps) => {
+const UserAlbums: FC<UserAlbumsProps> = ({ albums, setShouldRenderGallery }: UserAlbumsProps) => {
   const [startIndex, setStartIndex] = useState<number>(0)
   const [albumsToShow, setAlbumsToShow] = useState<number>(6)
 
@@ -16,6 +19,10 @@ const UserAlbums: FC<UserAlbumsProps> = ({ albums }: UserAlbumsProps) => {
 
   const showPrevAlbums = () => {
     setStartIndex(prevIndex => prevIndex - 1)
+  }
+
+  const handleAlbumClick = () => {
+    setShouldRenderGallery(true)
   }
 
   useEffect(() => {
@@ -42,25 +49,21 @@ const UserAlbums: FC<UserAlbumsProps> = ({ albums }: UserAlbumsProps) => {
   return (
     <div className='lg:w-[500px] h-[80px] mb-6 flex items-center justify-center'>
       {isPrevButtonVisible ? (
-        <button
+        <ChevronButton
           onClick={showPrevAlbums}
           className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
           <FaChevronLeft className='w-6 h-6' />
-        </button>
+        </ChevronButton>
       ) : null}
       {albums.slice(startIndex, endIndex).map(album => (
-        <div
-          key={album.id}
-          className='flex-shrink-0 w-[77px] h-[77px] mx-2 border-2 flex items-center justify-center rounded-full bg-black text-white cursor-pointer'>
-          {album.id}
-        </div>
+        <AlbumComponent key={album.id} album={album} onAlbumClick={handleAlbumClick} />
       ))}
       {isNextButtonVisible ? (
-        <button
+        <ChevronButton
           onClick={showNextAlbums}
           className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
           <FaChevronRight className='w-6 h-6' />
-        </button>
+        </ChevronButton>
       ) : null}
     </div>
   )
