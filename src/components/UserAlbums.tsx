@@ -40,11 +40,11 @@ const UserAlbums: FC<UserAlbumsProps> = ({ albums }: UserAlbumsProps) => {
   const isNextButtonVisible = endIndex < albums.length
 
   return (
-    <div className='lg:w-[500px] h-[80px] mb-8 flex items-center justify-center'>
+    <div className='lg:w-[500px] h-[80px] mb-6 flex items-center justify-center'>
       {isPrevButtonVisible ? (
         <button
           onClick={showPrevAlbums}
-          className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-500 text-white flex items-center justify-center ml-2 cursor-pointer'>
+          className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
           <FaChevronLeft className='w-6 h-6' />
         </button>
       ) : null}
@@ -58,7 +58,7 @@ const UserAlbums: FC<UserAlbumsProps> = ({ albums }: UserAlbumsProps) => {
       {isNextButtonVisible ? (
         <button
           onClick={showNextAlbums}
-          className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-500 text-white flex items-center justify-center ml-2 cursor-pointer'>
+          className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
           <FaChevronRight className='w-6 h-6' />
         </button>
       ) : null}

@@ -12,13 +12,13 @@ const UserProfileInfo: FC<UserProfileInfoProps> = ({ user }: UserProfileInfoProp
         <img
           src={`./assets/profile-${user.id}.jpg`}
           alt=''
-          className='w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] object-cover rounded-full bg-gray-500'
+          className='w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] object-cover rounded-full bg-gray-500 border-2 border-black'
         />
       </div>
       <div className='h-[100px] md:h-full xl:w-[600px] lg:w-[400px] md:w-[400px] md:ml-10 flex flex-shrink-0 flex-col justify-center'>
         <div className='w-full h-10 flex items-center justify-start mt-4 md:mt-0'>
           <p className='font-bold text-xl'>{user?.username}</p>
-          <button className='ml-4 bg-gray-400 text-white px-4 rounded-md h-8 hover:bg-gray-600'>
+          <button className='ml-4 bg-gray-300 text-white px-4 rounded-md h-7 hover:bg-gray-400 transition duration-200 ease-in-out'>
             Edit
           </button>
         </div>
