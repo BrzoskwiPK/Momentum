@@ -7,9 +7,14 @@ import ChevronButton from './ChevronButton'
 interface UserAlbumsProps {
   albums: Album[]
   setShouldRenderGallery: (shouldRender: boolean) => void
+  setCurrentAlbum: (albumId: number) => void
 }
 
-const UserAlbums: FC<UserAlbumsProps> = ({ albums, setShouldRenderGallery }: UserAlbumsProps) => {
+const UserAlbums: FC<UserAlbumsProps> = ({
+  albums,
+  setShouldRenderGallery,
+  setCurrentAlbum,
+}: UserAlbumsProps) => {
   const [startIndex, setStartIndex] = useState<number>(0)
   const [albumsToShow, setAlbumsToShow] = useState<number>(6)
 
@@ -21,8 +26,9 @@ const UserAlbums: FC<UserAlbumsProps> = ({ albums, setShouldRenderGallery }: Use
     setStartIndex(prevIndex => prevIndex - 1)
   }
 
-  const handleAlbumClick = () => {
+  const handleAlbumClick = (albumId: number) => {
     setShouldRenderGallery(true)
+    setCurrentAlbum(albumId)
   }
 
   useEffect(() => {
@@ -56,7 +62,11 @@ const UserAlbums: FC<UserAlbumsProps> = ({ albums, setShouldRenderGallery }: Use
         </ChevronButton>
       ) : null}
       {albums.slice(startIndex, endIndex).map(album => (
-        <AlbumComponent key={album.id} album={album} onAlbumClick={handleAlbumClick} />
+        <AlbumComponent
+          key={album.id}
+          album={album}
+          onAlbumClick={() => handleAlbumClick(album.id)}
+        />
       ))}
       {isNextButtonVisible ? (
         <ChevronButton

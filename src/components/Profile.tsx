@@ -8,6 +8,7 @@ import UserProfileInfo from './UserProfileInfo'
 import { fetchUserPosts } from '../api/posts'
 import UserPosts from './UserPosts'
 import UserTodos from './UserTodos'
+import AlbumGallery from './AlbumGallery'
 
 const Profile: FC = () => {
   const [user, setUser] = useState<User | null>(null)
@@ -16,6 +17,7 @@ const Profile: FC = () => {
   const [todos, setTodos] = useState<Todo[] | null>(null)
   const [selectedTab, setSelectedTab] = useState<'posts' | 'todos'>('posts')
   const [shouldRenderGallery, setShouldRenderGallery] = useState<boolean>(false)
+  const [currentAlbum, setCurrentAlbum] = useState<number>()
 
   const userContext = useContext(UserContext)
   const userCredentials: UserAccount = userContext?.user!
@@ -66,14 +68,6 @@ const Profile: FC = () => {
     if (userInfo) setUser(userInfo)
   }
 
-  const renderGallery = (albums: Album[]) => {
-    console.log('xd')
-  }
-
-  useEffect(() => {
-    if (shouldRenderGallery && albums) renderGallery(albums)
-  }, [shouldRenderGallery, albums])
-
   useEffect(() => {
     findUserInfo()
     findUserAlbums()
@@ -84,7 +78,11 @@ const Profile: FC = () => {
   return (
     <section className='w-full h-full flex flex-col justify-center items-center'>
       {user ? <UserProfileInfo user={user} /> : null}
-      <UserAlbums setShouldRenderGallery={setShouldRenderGallery} albums={albums || []} />
+      <UserAlbums
+        setShouldRenderGallery={setShouldRenderGallery}
+        setCurrentAlbum={setCurrentAlbum}
+        albums={albums || []}
+      />
       <div className='flex mb-4'>
         <button
           className={`mr-2 px-4 py-2 ${
@@ -104,6 +102,12 @@ const Profile: FC = () => {
       ) : (
         <UserTodos todos={todos || []} />
       )}
+      {shouldRenderGallery ? (
+        <AlbumGallery
+          setShouldRenderGallery={setShouldRenderGallery}
+          currentAlbum={currentAlbum!}
+        />
+      ) : null}
     </section>
   )
 }

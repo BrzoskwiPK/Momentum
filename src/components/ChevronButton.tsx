@@ -1,10 +1,10 @@
-import { FC, ReactNode } from 'react'
+import { FC, MouseEventHandler, ReactNode } from 'react'
 
 interface ChevronProps {
-  children: ReactNode
+  children: ReactNode | ReactNode[]
   className: string
 
-  onClick: () => void
+  onClick: MouseEventHandler<HTMLButtonElement>
 }
 
 const ChevronButton: FC<ChevronProps> = ({ children, onClick, className }: ChevronProps) => (

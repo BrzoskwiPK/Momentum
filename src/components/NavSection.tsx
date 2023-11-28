@@ -47,7 +47,12 @@ const NavSection: FC = () => {
   return (
     <section className='flex flex-col flex-grow justify-start'>
       {navigation.map((item, index) => (
-        <NavigationPath path={item} index={index} navigationLength={navigation.length} />
+        <NavigationPath
+          key={index}
+          path={item}
+          index={index}
+          navigationLength={navigation.length}
+        />
       ))}
     </section>
   )

@@ -13,6 +13,17 @@ export const fetchAllPhotos = async (): Promise<Photo> => {
   }
 }
 
+// GET https://jsonplaceholder.typicode.com/albums/:albumId/photos
+export const fetchPhotosByAlbumId = async (albumId: number): Promise<Photo[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/albums/${albumId}/photos`)
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 // GET https://jsonplaceholder.typicode/photos/:id
 export const fetchPhotoById = async (photoId: number): Promise<Photo> => {
   try {
