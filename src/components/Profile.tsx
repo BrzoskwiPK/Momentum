@@ -1,6 +1,5 @@
-import { FC, useContext, useEffect, useState } from 'react'
-import UserContext from '../contexts/user-context'
-import { Album, Post, Todo, User, UserAccount } from '../types/types'
+import { FC, useEffect, useState } from 'react'
+import { Album, Post, Todo, User } from '../types/types'
 import { useQueryClient } from '@tanstack/react-query'
 import { fetchAllUsers, fetchUserAlbums, fetchUserTodos } from '../api/users'
 import UserAlbums from './UserAlbums'
@@ -9,6 +8,7 @@ import { fetchUserPosts } from '../api/posts'
 import UserPosts from './UserPosts'
 import UserTodos from './UserTodos'
 import AlbumGallery from './AlbumGallery'
+import { useParams } from 'react-router-dom'
 
 const Profile: FC = () => {
   const [user, setUser] = useState<User | null>(null)
@@ -18,9 +18,8 @@ const Profile: FC = () => {
   const [selectedTab, setSelectedTab] = useState<'posts' | 'todos'>('posts')
   const [shouldRenderGallery, setShouldRenderGallery] = useState<boolean>(false)
   const [currentAlbum, setCurrentAlbum] = useState<number>()
+  const { profileId } = useParams()
 
-  const userContext = useContext(UserContext)
-  const userCredentials: UserAccount = userContext?.user!
   const queryClient = useQueryClient()
 
   const handleTabChange = (tab: 'posts' | 'todos') => {
@@ -30,8 +29,8 @@ const Profile: FC = () => {
   const findUserAlbums = async () => {
     if (user) {
       const data = await queryClient.ensureQueryData({
-        queryKey: ['userAlbums'],
-        queryFn: () => fetchUserAlbums(user.id),
+        queryKey: [`userAlbums-${profileId}`],
+        queryFn: () => fetchUserAlbums(Number(profileId)),
       })
 
       if (data.length > 0) setAlbums(data)
@@ -39,10 +38,10 @@ const Profile: FC = () => {
   }
 
   const findUserPosts = async () => {
-    if (user) {
+    if (profileId) {
       const data = await queryClient.ensureQueryData({
-        queryKey: ['userPosts'],
-        queryFn: () => fetchUserPosts(user.id),
+        queryKey: [`userPosts-${profileId}`],
+        queryFn: () => fetchUserPosts(Number(profileId)),
       })
 
       if (data.length > 0) setPosts(data)
@@ -50,10 +49,10 @@ const Profile: FC = () => {
   }
 
   const findUserTodos = async () => {
-    if (user) {
+    if (profileId) {
       const data = await queryClient.ensureQueryData({
-        queryKey: ['userTodos'],
-        queryFn: () => fetchUserTodos(user.id),
+        queryKey: [`userTodos-${profileId}`],
+        queryFn: () => fetchUserTodos(Number(profileId)),
       })
 
       if (data.length > 0) setTodos(data)
@@ -63,7 +62,7 @@ const Profile: FC = () => {
   const findUserInfo = async () => {
     const data = await queryClient.ensureQueryData({ queryKey: ['users'], queryFn: fetchAllUsers })
 
-    const userInfo = data.find(u => u.username === userCredentials?.username)
+    const userInfo = data.find(u => u.id === Number(profileId))
 
     if (userInfo) setUser(userInfo)
   }
@@ -74,15 +73,16 @@ const Profile: FC = () => {
     findUserPosts()
     findUserTodos()
   })
-
   return (
     <section className='w-full h-full flex flex-col justify-center items-center'>
       {user ? <UserProfileInfo user={user} /> : null}
-      <UserAlbums
-        setShouldRenderGallery={setShouldRenderGallery}
-        setCurrentAlbum={setCurrentAlbum}
-        albums={albums || []}
-      />
+      {albums ? (
+        <UserAlbums
+          setShouldRenderGallery={setShouldRenderGallery}
+          setCurrentAlbum={setCurrentAlbum}
+          albums={albums}
+        />
+      ) : null}
       <div className='flex mb-4'>
         <button
           className={`mr-2 px-4 py-2 ${

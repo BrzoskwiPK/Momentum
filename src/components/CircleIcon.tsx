@@ -1,4 +1,5 @@
 import { FC, CSSProperties } from 'react'
+
 interface CircleIconProps {
   imageUrl: string
   size?: number

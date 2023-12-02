@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { FC, Fragment, MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { FC, Fragment, useEffect, useRef, useState } from 'react'
 import ChevronButton from './ChevronButton'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import { Photo } from '../types/types'
