@@ -47,11 +47,17 @@ export type User = {
   company: Company
 }
 
+export type Geo = {
+  lat: string
+  lng: string
+}
+
 export type Address = {
   street: string
   suite: string
   city: string
   zipcode: string
+  geo: Geo
 }
 
 export type Company = {
@@ -59,12 +65,6 @@ export type Company = {
   catchPhrase: string
   bs: string
 }
-
-export type UserAccount = {
-  username: string
-  email: string
-  id: number
-} | null
 
 export type NavigationItem = {
   name: string

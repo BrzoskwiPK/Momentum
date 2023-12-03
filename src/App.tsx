@@ -1,38 +1,21 @@
 import {
-  Outlet,
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom'
-import Header from './components/Header'
 import './common.scss'
 import RouteError from './components/RouteError'
 import Profile from './components/Profile'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import Feed from './components/Feed'
 import ProtectedRoute from './components/ProtectedRoute'
 import UserContextProvider from './components/UserContextProvider'
 import SignIn from './components/SignIn'
-import UserContext from './contexts/user-context'
-import { isAuthenticated } from './utils/helpers'
 import Modal from './components/Modal'
 import SearchForm from './components/SearchForm'
 import Posts from './components/Posts'
-
-const Layout: FC = () => {
-  const userContext = useContext(UserContext)
-  const authenticatedUser = isAuthenticated(userContext?.user!)
-
-  return (
-    <>
-      {authenticatedUser ? <Header /> : null}
-      <main className='w-full overflow-y-scroll'>
-        <Outlet />
-      </main>
-    </>
-  )
-}
+import Layout from './components/Layout'
 
 const router = createBrowserRouter(
   createRoutesFromElements(

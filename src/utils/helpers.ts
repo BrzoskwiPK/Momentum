@@ -1,9 +1,9 @@
-import { UserAccount } from '../types/types'
+import { User } from '../types/types'
 
 export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ')
 }
 
-export const isAuthenticated = (user: UserAccount) => {
-  return user !== null
+export const isAuthenticated = (user: Partial<User> | null | undefined) => {
+  return user !== undefined && user !== null
 }

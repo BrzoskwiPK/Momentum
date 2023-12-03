@@ -27,9 +27,14 @@ export const useSignInForm = () => {
     }
 
     userContext?.setUser({
-      email: authenticatedUser.email,
-      username: authenticatedUser.username,
       id: authenticatedUser.id,
+      name: authenticatedUser.name,
+      username: authenticatedUser.username,
+      email: authenticatedUser.email,
+      address: authenticatedUser.address,
+      phone: authenticatedUser.phone,
+      website: authenticatedUser.website,
+      company: authenticatedUser.company,
     })
 
     setFormError('')
