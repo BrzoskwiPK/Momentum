@@ -14,7 +14,7 @@ const AlbumsCard: FC<AlbumCardProps> = ({ album }: AlbumCardProps) => {
 
   useEffect(() => {
     fetchAlbumsPhotos()
-  })
+  }, [])
 
   const fetchAlbumsPhotos = async () => {
     const data = await queryClient.ensureQueryData({

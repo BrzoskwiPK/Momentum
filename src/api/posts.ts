@@ -3,7 +3,7 @@ import { API_BASE_URL } from '../utils/constants'
 import { Post } from '../types/types'
 
 // GET https://jsonplaceholder.typicode.com/posts
-export const fetchAllPosts = async (): Promise<Post> => {
+export const fetchAllPosts = async (): Promise<Post[]> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/posts`)
 
