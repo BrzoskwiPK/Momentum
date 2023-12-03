@@ -7,7 +7,7 @@ import {
   IoLogOut,
 } from 'react-icons/io5'
 import { BiSolidMessageRounded, BiMessageRounded } from 'react-icons/bi'
-import { NavigationItem, UserAccount } from '../types/types'
+import { NavigationItem, User } from '../types/types'
 import CircleIcon from './CircleIcon'
 import { IoIosLogOut } from 'react-icons/io'
 import UserContext from '../contexts/user-context'
@@ -15,7 +15,7 @@ import NavigationPath from './NavigationPath'
 
 const NavSection: FC = () => {
   const userContext = useContext(UserContext)
-  const userCredentials: UserAccount = userContext?.user!
+  const userCredentials: Partial<User> = userContext?.user!
 
   const navigation: NavigationItem[] = [
     {

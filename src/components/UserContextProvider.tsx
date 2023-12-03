@@ -1,13 +1,13 @@
 import { FC, useState } from 'react'
 import UserContext from '../contexts/user-context'
-import { UserAccount } from '../types/types'
+import { User } from '../types/types'
 
 interface UserContextProviderProps {
   children: React.ReactNode
 }
 
 const UserContextProvider: FC<UserContextProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<UserAccount | null>(null)
+  const [user, setUser] = useState<Partial<User> | null>(null)
 
   const contextValue = {
     user,

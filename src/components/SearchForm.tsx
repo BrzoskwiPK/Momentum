@@ -95,6 +95,7 @@ const SearchForm: FC = () => {
       </div>
       <input
         type='text'
+        name='search-input'
         placeholder='Search'
         value={searchPhrase}
         onChange={e => setSearchPhrase(e.target.value)}
