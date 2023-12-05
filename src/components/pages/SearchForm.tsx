@@ -1,12 +1,12 @@
 import { FC, useCallback, useEffect, useState } from 'react'
-import { fetchAllUsers } from '../api/users'
+import { fetchAllUsers } from '../../api/users'
 import { useQueryClient } from '@tanstack/react-query'
-import { Album, Photo, User } from '../types/types'
-import { fetchAllPhotos } from '../api/photos'
-import UserCard from './UserCard'
-import PhotosCard from './PhotosCard'
-import { fetchAllAlbums } from '../api/albums'
-import AlbumsCard from './AlbumsCard'
+import { Album, Photo, User } from '../../types/types'
+import { fetchAllPhotos } from '../../api/photos'
+import UserCard from '../UserCard'
+import PhotosCard from '../PhotosCard'
+import { fetchAllAlbums } from '../../api/albums'
+import AlbumsCard from '../AlbumsCard'
 
 const getFilteredResults = (
   searchPhrase: string,
