@@ -13,6 +13,17 @@ export const fetchAllComments = async (): Promise<Comment> => {
   }
 }
 
+// GET https://jsonplaceholder.typicode/posts/:postId/comments
+export const fetchCommentsByPostId = async (postId: number): Promise<Comment[]> => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/posts/${postId}/comments`)
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 // GET https://jsonplaceholder.typicode/comments/:id
 export const fetchCommentById = async (commentId: number): Promise<Comment> => {
   try {

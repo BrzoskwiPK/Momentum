@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { Album } from '../types/types'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
-import AlbumComponent from './AlbumComponent'
 import ChevronButton from './ChevronButton'
+import AlbumComponent from './AlbumComponent'
 
 interface UserAlbumsProps {
   albums: Album[]
