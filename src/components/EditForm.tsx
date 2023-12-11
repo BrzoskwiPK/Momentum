@@ -42,10 +42,11 @@ const EditForm = ({ user, handleCancel }: EditFormProps) => {
   }
 
   return (
-    <form className='w-full absolute top-0 left-0 z-100 bg-gray-500 h-full flex items-center flex-col justify-center'>
-      <div className='space-y-12 w-full'>
-        <div className='border-b border-gray-900/10 pb-12'>
-          <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+    <form className='w-full min-h-[100vh] absolute top-0 left-0 z-50 bg-gray-200 flex items-center flex-col justify-center'>
+      <div className='w-[80%] py-6'>
+        <div className='grid grid-cols-1 gap-x-6 md:gap-y-8 sm:grid-cols-2'>
+          <div className='md:border-b md:border-gray-900/10 md:pb-6'>
+            <p className='font-bold text-xl my-4'>Profile Info</p>
             <FormField
               label='Username'
               name='username'
@@ -75,6 +76,23 @@ const EditForm = ({ user, handleCancel }: EditFormProps) => {
               value={formData.email}
               onChange={formData.setEmail}
             />
+            <FormField
+              label='Phone'
+              name='phone'
+              defaultValue={user.phone}
+              value={formData.phone}
+              onChange={formData.setPhone}
+            />
+            <FormField
+              label='Website'
+              name='website'
+              defaultValue={user.website}
+              value={formData.website}
+              onChange={formData.setWebsite}
+            />
+          </div>
+          <div className='md:border-b md:border-gray-900/10 md:pb-6'>
+            <p className='font-bold text-xl my-4'>Address</p>
             <FormField
               label='Street'
               name='street-address'
@@ -117,20 +135,9 @@ const EditForm = ({ user, handleCancel }: EditFormProps) => {
               value={formData.geoLongitude}
               onChange={formData.setGeoLongitude}
             />
-            <FormField
-              label='Phone'
-              name='phone'
-              defaultValue={user.phone}
-              value={formData.phone}
-              onChange={formData.setPhone}
-            />
-            <FormField
-              label='Website'
-              name='website'
-              defaultValue={user.website}
-              value={formData.website}
-              onChange={formData.setWebsite}
-            />
+          </div>
+          <div>
+            <p className='font-bold text-xl my-4'>Company Info</p>
             <FormField
               label='Company Name'
               name='company-name'
@@ -156,7 +163,7 @@ const EditForm = ({ user, handleCancel }: EditFormProps) => {
         </div>
       </div>
 
-      <div className='mt-6 flex items-center justify-end gap-x-6'>
+      <div className='flex items-center justify-end gap-x-6 w-[80%] mb-6'>
         <button
           type='button'
           className='text-sm font-semibold leading-6 text-gray-900'

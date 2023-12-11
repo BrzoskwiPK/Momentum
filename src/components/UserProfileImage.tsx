@@ -5,7 +5,7 @@ interface UserProfileImageProps {
 }
 
 const UserProfileImage: FC<UserProfileImageProps> = ({ userId }: UserProfileImageProps) => (
-  <div className='flex-shrink-0 md:mb-0 w-100 h-100'>
+  <div className='flex-shrink-0 md:mb-0 w-100 h-100 mt-6 lg:mt-0'>
     <img
       src={`../assets/profile-${userId}.jpg`}
       alt=''
