@@ -75,7 +75,7 @@ const Profile: FC = () => {
   }, [])
 
   return (
-    <section className='w-full h-full flex flex-col justify-start items-center'>
+    <section className='w-full min-h-full flex flex-col justify-start items-center'>
       {user ? <UserProfileInfo user={user} /> : null}
       {albums ? (
         <UserAlbums
@@ -84,7 +84,7 @@ const Profile: FC = () => {
           albums={albums}
         />
       ) : null}
-      <div className='flex mb-4'>
+      <div className='flex w-full justify-center px-10 mb-6'>
         <button
           className={`mr-2 px-4 py-2 ${
             selectedTab === 'posts' ? 'bg-black text-white' : 'bg-gray-300'

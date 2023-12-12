@@ -70,9 +70,9 @@ const SearchForm: FC = () => {
 
   return (
     <div className='w-full h-full flex items-center justify-center flex-col'>
-      <div className='flex mb-4'>
+      <div className='flex flex-col sm:flex-row my-4'>
         <button
-          className={`mr-2 px-4 py-2 ${
+          className={`sm:mr-2 px-4 py-2 ${
             selectedTab === 'users' ? 'bg-black text-white' : 'bg-gray-300'
           }`}
           onClick={() => handleChangeSelectedTab('users')}>
@@ -86,7 +86,7 @@ const SearchForm: FC = () => {
           Find Photo
         </button>
         <button
-          className={`ml-2 px-4 py-2 ${
+          className={`sm:ml-2 px-4 py-2 ${
             selectedTab === 'albums' ? 'bg-black text-white' : 'bg-gray-300'
           }`}
           onClick={() => handleChangeSelectedTab('albums')}>

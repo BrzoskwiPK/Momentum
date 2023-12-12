@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import {
   IoHomeOutline,
   IoHomeSharp,
@@ -7,15 +7,14 @@ import {
   IoLogOut,
 } from 'react-icons/io5'
 import { BiSolidMessageRounded, BiMessageRounded } from 'react-icons/bi'
-import { NavigationItem, User } from '../types/types'
+import { NavigationItem } from '../types/types'
 import CircleIcon from './CircleIcon'
 import { IoIosLogOut } from 'react-icons/io'
-import UserContext from '../contexts/user-context'
 import NavigationPath from './NavigationPath'
+import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 const NavSection: FC = () => {
-  const userContext = useContext(UserContext)
-  const userCredentials: Partial<User> = userContext?.user!
+  const { userContext } = useAuthenticatedUser()
 
   const navigation: NavigationItem[] = [
     {
@@ -38,9 +37,9 @@ const NavSection: FC = () => {
     },
     {
       name: 'Profile',
-      href: `/profile/${userCredentials.id}`,
-      iconBase: <CircleIcon imageUrl={`./assets/profile-${userCredentials.id}.jpg`} />,
-      iconActive: <CircleIcon imageUrl={`./assets/profile-${userCredentials.id}.jpg`} />,
+      href: `/profile/${userContext.id}`,
+      iconBase: <CircleIcon imageUrl={`./assets/profile-${userContext.id}.jpg`} />,
+      iconActive: <CircleIcon imageUrl={`./assets/profile-${userContext.id}.jpg`} />,
       current: true,
     },
     {

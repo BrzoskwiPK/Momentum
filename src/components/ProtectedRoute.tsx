@@ -1,18 +1,15 @@
-import { FC, useContext } from 'react'
-import UserContext from '../contexts/user-context'
-import { isAuthenticated } from '../utils/helpers'
+import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
-import { User } from '../types/types'
+import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 type Props = {
   children: JSX.Element
 }
 
 const ProtectedRoute: FC<Props> = ({ children }: Props) => {
-  const userContext = useContext(UserContext)
-  const user: Partial<User> = userContext?.user!
+  const { isAuthenticated } = useAuthenticatedUser()
 
-  if (!isAuthenticated(user)) return <Navigate to='/' replace />
+  if (!isAuthenticated) return <Navigate to='/' replace />
 
   return children
 }

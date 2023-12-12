@@ -1,7 +1,7 @@
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import CircleIcon from './CircleIcon'
 import { User } from '../types/types'
-import UserContext from '../contexts/user-context'
+import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 interface CommentProps {
   id: number
@@ -18,23 +18,23 @@ const CommentComponent: FC<CommentProps> = ({
   content,
   deleteComment,
 }: CommentProps) => {
-  const userContext = useContext(UserContext)
-  const authenticatedUser = userContext?.user
+  const { userContext } = useAuthenticatedUser()
+
   return (
     <div>
-      <div className='flex my-2 px-4'>
-        {authenticatedUser?.id === publisher.id ? (
-          <button
-            className='absolute top-1 right-2 bg-red-500 w-[80px] rounded-sm text-white py-1 hover:bg-red-400'
-            onClick={() => deleteComment(id)}>
-            DELETE
-          </button>
-        ) : null}
+      <div className='flex my-2 px-4 pb-1'>
         <CircleIcon size={38} imageUrl={`./assets/profile-${publisher.id}.jpg`} />
         <div>
           <p className='font-bold'>{publisher.name}</p>
           <p className='text-sm'>{Math.floor(Math.random() * 10) + 1} hours ago</p>
         </div>
+        {userContext?.id === publisher.id ? (
+          <button
+            className='mx-4 bg-red-500 w-[80px] h-8 rounded-sm text-white py-1 hover:bg-red-400'
+            onClick={() => deleteComment(id)}>
+            DELETE
+          </button>
+        ) : null}
       </div>
       <div className='px-[60px] mt-2'>
         <p className='font-semibold mb-1'>{name}</p>

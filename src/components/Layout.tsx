@@ -1,16 +1,14 @@
-import { FC, useContext } from 'react'
-import { isAuthenticated } from '../utils/helpers'
+import { FC } from 'react'
 import Header from './Header'
-import UserContext from '../contexts/user-context'
 import { Outlet } from 'react-router-dom'
+import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 const Layout: FC = () => {
-  const userContext = useContext(UserContext)
-  const authenticatedUser = isAuthenticated(userContext?.user!)
+  const { isAuthenticated } = useAuthenticatedUser()
 
   return (
     <>
-      {authenticatedUser ? <Header /> : null}
+      {isAuthenticated ? <Header /> : null}
       <main className='w-full overflow-y-scroll'>
         <Outlet />
       </main>
