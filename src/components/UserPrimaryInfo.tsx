@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import EditForm from './EditForm'
-import { User } from '../types/types'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 interface UserPrimaryInfoProps {

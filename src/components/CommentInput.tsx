@@ -15,7 +15,7 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
       <CircleIcon size={42} imageUrl={`./assets/profile-${userContext?.id}.jpg`} />
       <input
         type='text'
-        className='text'
+        className='text w-[40%]'
         placeholder='write a comment...'
         value={commentText}
         onChange={e => setCommentText(e.target.value)}

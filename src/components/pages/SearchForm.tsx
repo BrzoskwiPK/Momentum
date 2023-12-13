@@ -18,7 +18,6 @@ const SearchForm: FC = () => {
 
   useEffect(() => {
     if (users && photos && albums) {
-      console.log(photos)
       setSearchResults(getFilteredResults(searchPhrase, selectedTab, users, photos, albums))
     }
   }, [searchPhrase, selectedTab, users, photos, albums])
@@ -33,7 +32,7 @@ const SearchForm: FC = () => {
 
   return (
     <div className='w-full h-full flex items-center justify-center flex-col'>
-      <div className='flex flex-col sm:flex-row my-4'>
+      <div className='flex flex-col sm:flex-row my-4 mt-10 sm:mt-4'>
         <button
           className={`sm:mr-2 px-4 py-2 ${
             selectedTab === 'users' ? 'bg-black text-white' : 'bg-gray-300'

@@ -11,7 +11,7 @@ const AlbumsFeed: FC<AlbumsFeedProps> = ({ album }: AlbumsFeedProps) => {
   const { photos } = usePhotosByAlbumId(album.id)
 
   return (
-    <div className='flex w-full flex-wrap'>
+    <div className='flex w-full flex-wrap justify-center gap-2'>
       {photos?.map(photo => (
         <PhotosCard key={photo.id} photo={photo} />
       ))}
