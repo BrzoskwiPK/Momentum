@@ -3,7 +3,7 @@ import CircleIcon from './CircleIcon'
 import { User } from '../types/types'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
-interface CommentProps {
+interface CommentComponentProps {
   id: number
   name: string
   publisher: User
@@ -11,14 +11,15 @@ interface CommentProps {
   deleteComment: (index: number) => void
 }
 
-const CommentComponent: FC<CommentProps> = ({
+const CommentComponent: FC<CommentComponentProps> = ({
   id,
   name,
   publisher,
   content,
   deleteComment,
-}: CommentProps) => {
+}: CommentComponentProps) => {
   const { userContext } = useAuthenticatedUser()
+  const isUserCommentOwner = userContext?.id === publisher.id
 
   return (
     <div>
@@ -26,9 +27,9 @@ const CommentComponent: FC<CommentProps> = ({
         <CircleIcon size={38} imageUrl={`./assets/profile-${publisher.id}.jpg`} />
         <div>
           <p className='font-bold'>{publisher.name}</p>
-          <p className='text-sm'>{Math.floor(Math.random() * 10) + 1} hours ago</p>
+          <p className='text-sm'>{Math.ceil(Math.random() * 10 + 1)} hours ago</p>
         </div>
-        {userContext?.id === publisher.id ? (
+        {isUserCommentOwner ? (
           <button
             className='mx-4 bg-red-500 w-[80px] h-8 rounded-sm text-white py-1 hover:bg-red-400'
             onClick={() => deleteComment(id)}>

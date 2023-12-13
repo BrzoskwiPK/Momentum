@@ -1,29 +1,14 @@
-import { FC, useEffect, useState } from 'react'
-import { Album, Photo } from '../types/types'
-import { useQueryClient } from '@tanstack/react-query'
-import { fetchPhotosByAlbumId } from '../api/photos'
+import { FC } from 'react'
+import { Album } from '../types/types'
 import PhotosCard from './PhotosCard'
+import { usePhotosByAlbumId } from '../hooks/usePhotosByAlbumId'
 
 interface AlbumCardProps {
   album: Album
 }
 
 const AlbumsCard: FC<AlbumCardProps> = ({ album }: AlbumCardProps) => {
-  const queryClient = useQueryClient()
-  const [photos, setPhotos] = useState<Photo[]>()
-
-  useEffect(() => {
-    fetchAlbumsPhotos()
-  }, [])
-
-  const fetchAlbumsPhotos = async () => {
-    const data = await queryClient.ensureQueryData({
-      queryKey: [`albumsPhotos-${album.id}`],
-      queryFn: () => fetchPhotosByAlbumId(album.id),
-    })
-
-    if (data.length > 0) setPhotos(data)
-  }
+  const { photos } = usePhotosByAlbumId(album.id)
 
   return (
     <div className='w-full flex flex-col justify-center'>
@@ -31,13 +16,9 @@ const AlbumsCard: FC<AlbumCardProps> = ({ album }: AlbumCardProps) => {
         <strong>Album:</strong> {album.title}
       </p>
       <div className='w-full flex flex-wrap gap-2 justify-center'>
-        {photos
-          ? photos.map(p => (
-              <div key={p.id} className='my-5'>
-                <PhotosCard photo={p} />
-              </div>
-            ))
-          : 'Loading...'}
+        {photos?.map(photo => (
+          <PhotosCard key={photo.id} photo={photo} />
+        ))}
       </div>
     </div>
   )

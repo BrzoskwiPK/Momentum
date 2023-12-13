@@ -1,45 +1,30 @@
-import { useQueryClient } from '@tanstack/react-query'
-import { FC, useEffect, useState } from 'react'
-import { fetchAllPosts } from '../../api/posts'
-import { Post, User } from '../../types/types'
+import { FC } from 'react'
 import PostComponent from '../PostComponent'
-import { fetchAllUsers } from '../../api/users'
+import { shuffleArray } from '../../utils/helpers'
+import { usePosts } from '../../hooks/usePosts'
+import { useUsers } from '../../hooks/useUsers'
 
 const Posts: FC = () => {
-  const [posts, setPosts] = useState<Post[]>()
-  const [users, setUsers] = useState<User[]>()
-  const queryClient = useQueryClient()
+  const { posts } = usePosts()
+  const { users } = useUsers()
 
-  const fetchPosts = async () => {
-    const data = await queryClient.ensureQueryData({
-      queryKey: ['posts'],
-      queryFn: fetchAllPosts,
-    })
-
-    if (data.length > 0) setPosts(data)
+  const deletePost = () => {
+    // TBD
   }
 
-  const fetchUsers = async () => {
-    const data = await queryClient.ensureQueryData({
-      queryKey: ['users'],
-      queryFn: fetchAllUsers,
-    })
-
-    if (data.length > 0) setUsers(data)
-  }
-
-  useEffect(() => {
-    fetchPosts()
-    fetchUsers()
-  }, [])
-
-  const deletePost = (i: number) => {
-    setPosts(prev => prev?.filter(post => post.id !== i))
+  const addPost = () => {
+    // TBD
   }
 
   return (
     <div className='w-full max-h-screen flex flex-col items-center'>
-      {posts?.map(post => (
+      <div className='w-[80%] my-6 border-b-4 pb-4 flex flex-col'>
+        <h2 className='text-3xl'>Posts</h2>
+        <p className='underline hover:cursor-pointer self-end' onClick={addPost}>
+          Add your own post
+        </p>
+      </div>
+      {shuffleArray(posts!)?.map(post => (
         <PostComponent
           key={post.id}
           title={post.title}

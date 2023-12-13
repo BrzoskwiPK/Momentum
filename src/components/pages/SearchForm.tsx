@@ -1,63 +1,26 @@
 import { FC, useCallback, useEffect, useState } from 'react'
-import { fetchAllUsers } from '../../api/users'
-import { useQueryClient } from '@tanstack/react-query'
 import { Album, Photo, User } from '../../types/types'
-import { fetchAllPhotos } from '../../api/photos'
 import UserCard from '../UserCard'
 import PhotosCard from '../PhotosCard'
-import { fetchAllAlbums } from '../../api/albums'
 import AlbumsCard from '../AlbumsCard'
-
-const getFilteredResults = (
-  searchPhrase: string,
-  selectedTab: string,
-  users: User[],
-  photos: Photo[],
-  albums: Album[]
-): (User | Photo | Album)[] => {
-  if (searchPhrase.length === 0) return []
-
-  const searchLowerCase = searchPhrase.toLowerCase()
-
-  if (selectedTab === 'photos') {
-    return photos.filter(p => p.id.toString().startsWith(searchLowerCase))
-  } else if (selectedTab === 'users') {
-    return users.filter(u => u.name.toLowerCase().startsWith(searchLowerCase))
-  } else if (selectedTab === 'albums') {
-    return albums.filter(a => a.id.toString().startsWith(searchLowerCase))
-  }
-
-  return []
-}
-
-const fetchData = async (
-  queryClient: any,
-  queryKey: string[],
-  fetchFn: () => Promise<any>,
-  setData: (data: any) => void
-) => {
-  const data = await queryClient.ensureQueryData({ queryKey, queryFn: fetchFn })
-  if (data) setData(data)
-}
+import { getFilteredResults } from '../../utils/helpers'
+import { useAlbums } from '../../hooks/useAlbums'
+import { useUsers } from '../../hooks/useUsers'
+import { usePhotos } from '../../hooks/usePhotos'
 
 const SearchForm: FC = () => {
-  const [users, setUsers] = useState<User[]>([])
-  const [photos, setPhotos] = useState<Photo[]>([])
-  const [albums, setAlbums] = useState<Album[]>([])
+  const { users } = useUsers()
+  const { photos } = usePhotos()
+  const { albums } = useAlbums()
   const [searchPhrase, setSearchPhrase] = useState<string>('')
   const [selectedTab, setSelectedTab] = useState<string>('users')
   const [searchResults, setSearchResults] = useState<(User | Photo | Album)[]>([])
 
-  const queryClient = useQueryClient()
-
   useEffect(() => {
-    fetchData(queryClient, ['users'], fetchAllUsers, setUsers)
-    fetchData(queryClient, ['photos'], fetchAllPhotos, setPhotos)
-    fetchData(queryClient, ['albums'], fetchAllAlbums, setAlbums)
-  }, [])
-
-  useEffect(() => {
-    setSearchResults(getFilteredResults(searchPhrase, selectedTab, users, photos, albums))
+    if (users && photos && albums) {
+      console.log(photos)
+      setSearchResults(getFilteredResults(searchPhrase, selectedTab, users, photos, albums))
+    }
   }, [searchPhrase, selectedTab, users, photos, albums])
 
   const handleChangeSelectedTab = useCallback(

@@ -1,21 +1,21 @@
-import { useContext } from 'react'
-import UserContext from '../contexts/user-context'
 import { User } from '../types/types'
 import { useEditFormData } from '../hooks/useEditFormData'
 import FormField from './FormField'
+import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
+import { FC } from 'react'
 
 interface EditFormProps {
   user: Partial<User>
   handleCancel: () => void
 }
 
-const EditForm = ({ user, handleCancel }: EditFormProps) => {
+const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
   const formData = useEditFormData()
-  const userContext = useContext(UserContext)
+  const { userContext } = useAuthenticatedUser()
 
   const handleSave = () => {
     const updatedUser: User = {
-      id: userContext?.user?.id!,
+      id: userContext?.id!,
       name: `${formData.firstName} ${formData.lastName}`,
       username: formData.username,
       email: formData.email,
@@ -37,12 +37,11 @@ const EditForm = ({ user, handleCancel }: EditFormProps) => {
         catchPhrase: formData.companyCatchPhrase,
       },
     }
-
-    userContext?.setUser(updatedUser)
+    console.log(updatedUser)
   }
 
   return (
-    <form className='w-full min-h-[100vh] absolute top-0 left-0 z-50 bg-gray-200 flex items-center flex-col justify-center'>
+    <form className='w-full min-h-[100vh] md:h-[100vh] absolute top-0 left-0 z-50 bg-gray-200 flex items-center flex-col justify-center'>
       <div className='w-[80%] py-6'>
         <div className='grid grid-cols-1 gap-x-6 md:gap-y-8 sm:grid-cols-2'>
           <div className='md:border-b md:border-gray-900/10 md:pb-6'>
@@ -163,10 +162,10 @@ const EditForm = ({ user, handleCancel }: EditFormProps) => {
         </div>
       </div>
 
-      <div className='flex items-center justify-end gap-x-6 w-[80%] mb-6'>
+      <div className='flex items-center justify-end gap-x-3 w-[80%] mb-6'>
         <button
           type='button'
-          className='text-sm font-semibold leading-6 text-gray-900'
+          className='rounded-md text-sm font-semibold leading-6 text-gray-900 bg-white px-3 py-2 hover:bg-gray-100'
           onClick={handleCancel}>
           Cancel
         </button>

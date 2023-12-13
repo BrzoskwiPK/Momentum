@@ -13,15 +13,3 @@
 .todo-item:nth-last-child(-n + 2) {
   padding-bottom: 20px;
 }
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgb(11, 11, 11);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgb(55, 55, 55);
-}

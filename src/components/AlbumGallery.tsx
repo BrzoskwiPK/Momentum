@@ -16,6 +16,7 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
 }: AlbumGalleryProps) => {
   const [open, setOpen] = useState(true)
   const cancelButtonRef = useRef(null)
+
   const [albumPhotos, setAlbumPhotos] = useState<Photo[]>([])
   const [imageSrc, setImageSrc] = useState<string>('')
   const [currentImage, setCurrentImage] = useState<number>(0)
@@ -23,23 +24,24 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
   const [shouldCloseDialog, setShouldCloseDialog] = useState(false)
 
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const photos = await fetchPhotosByAlbumId(currentAlbum)
-        setAlbumPhotos(photos)
-        setCurrentImage(0)
-        if (photos.length > 0) {
-          setImageSrc(photos[0].url)
-        }
-      } catch (error) {
-        console.error('Error fetching photos:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchImages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAlbum])
+
+  const fetchImages = async () => {
+    try {
+      const photos = await fetchPhotosByAlbumId(currentAlbum)
+      setAlbumPhotos(photos)
+      setCurrentImage(0)
+      if (photos.length > 0) {
+        setImageSrc(photos[0].url)
+      }
+    } catch (error) {
+      console.error('Error fetching photos:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handlePrevPhoto = () => {
     setCurrentImage(prev => prev - 1)
