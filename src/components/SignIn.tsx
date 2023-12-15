@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import SignInForm from './SignInForm'
+import SignInForm from './forms/SignInForm'
 import { useSignInForm } from '../hooks/useSignInForm'
 
 const SignIn: FC = () => {

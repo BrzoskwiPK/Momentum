@@ -3,11 +3,11 @@ import { usePhotosByAlbumId } from '../hooks/usePhotosByAlbumId'
 import { Album } from '../types/types'
 import PhotosCard from './PhotosCard'
 
-interface AlbumsFeedProps {
+interface AlbumPhotoViewerProps {
   album: Album
 }
 
-const AlbumsFeed: FC<AlbumsFeedProps> = ({ album }: AlbumsFeedProps) => {
+const AlbumPhotoViewer: FC<AlbumPhotoViewerProps> = ({ album }: AlbumPhotoViewerProps) => {
   const { photos } = usePhotosByAlbumId(album.id)
 
   return (
@@ -19,4 +19,4 @@ const AlbumsFeed: FC<AlbumsFeedProps> = ({ album }: AlbumsFeedProps) => {
   )
 }
 
-export default AlbumsFeed
+export default AlbumPhotoViewer

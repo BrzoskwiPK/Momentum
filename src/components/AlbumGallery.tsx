@@ -16,17 +16,35 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
 }: AlbumGalleryProps) => {
   const [open, setOpen] = useState(true)
   const cancelButtonRef = useRef(null)
-
+  const dialogRef = useRef<HTMLDivElement | null>(null)
   const [albumPhotos, setAlbumPhotos] = useState<Photo[]>([])
   const [imageSrc, setImageSrc] = useState<string>('')
   const [currentImage, setCurrentImage] = useState<number>(0)
   const [loading, setLoading] = useState(true)
-  const [shouldCloseDialog, setShouldCloseDialog] = useState(false)
 
   useEffect(() => {
     fetchImages()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAlbum])
+
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    if (!e.target || !(e.target instanceof Node)) return
+
+    const isClickableSvg =
+      (e.target as HTMLElement).tagName.toLowerCase() === 'svg' &&
+      !(e.target as HTMLElement).classList.contains('clickable')
+
+    const overlay = dialogRef.current
+    if (
+      overlay &&
+      overlay.contains(e.target as Node) &&
+      (overlay.childNodes[0] as HTMLElement).classList.contains('bg-gray-500') &&
+      !isClickableSvg
+    ) {
+      setShouldRenderGallery(false)
+      setOpen(false)
+    }
+  }
 
   const fetchImages = async () => {
     try {
@@ -46,22 +64,11 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
   const handlePrevPhoto = () => {
     setCurrentImage(prev => prev - 1)
     setImageSrc(albumPhotos[currentImage].url)
-    setShouldCloseDialog(false)
   }
 
   const handleNextPhoto = () => {
     setCurrentImage(prev => prev + 1)
     setImageSrc(albumPhotos[currentImage].url)
-    setShouldCloseDialog(false)
-  }
-
-  const handleClose = () => {
-    if (shouldCloseDialog) {
-      setShouldRenderGallery(false)
-      setOpen(false)
-    } else {
-      setShouldCloseDialog(true)
-    }
   }
 
   return (
@@ -70,7 +77,9 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
         as='div'
         className='relative z-10'
         initialFocus={cancelButtonRef}
-        onClose={handleClose}>
+        onClick={handleOverlayClick}
+        onClose={() => {}}
+        ref={dialogRef}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -84,13 +93,13 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
 
         <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
           <div className='flex min-h-full justify-center p-4 text-center items-center sm:p-0'>
-            {currentImage > 0 ? (
-              <ChevronButton
-                onClick={handlePrevPhoto}
-                className='w-8 h-8 mr-2 lg:mr-5 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
-                <FaChevronLeft className='w-4 h-4' />
-              </ChevronButton>
-            ) : null}
+            <ChevronButton
+              onClick={handlePrevPhoto}
+              className={`clickable ${
+                currentImage === 0 ? 'invisible' : ''
+              } w-8 h-8 mr-2 lg:mr-5 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400`}>
+              <FaChevronLeft className='w-4 h-4' />
+            </ChevronButton>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-300'
@@ -110,13 +119,13 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
                 </div>
               </Dialog.Panel>
             </Transition.Child>
-            {currentImage < albumPhotos.length ? (
-              <ChevronButton
-                onClick={handleNextPhoto}
-                className='w-8 h-8 ml-2 lg:ml-5 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
-                <FaChevronRight className='w-4 h-4' />
-              </ChevronButton>
-            ) : null}
+            <ChevronButton
+              onClick={handleNextPhoto}
+              className={`clickable ${
+                currentImage === albumPhotos.length ? 'invisible' : ''
+              } w-8 h-8 ml-2 lg:ml-5 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400`}>
+              <FaChevronRight className='w-4 h-4' />
+            </ChevronButton>
           </div>
         </div>
       </Dialog>

@@ -1,7 +1,7 @@
-import { User } from '../types/types'
-import { useEditFormData } from '../hooks/useEditFormData'
-import FormField from './FormField'
-import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
+import { User } from '../../types/types'
+import { useEditFormData } from '../../hooks/useEditFormData'
+import FormField from '../FormField'
+import { useAuthenticatedUser } from '../../hooks/useAuthenticatedUser'
 import { FC } from 'react'
 
 interface EditFormProps {

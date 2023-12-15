@@ -9,6 +9,7 @@ import { useUserAlbums } from '../../hooks/useUserAlbums'
 import { useUserPosts } from '../../hooks/useUserPosts'
 import { useUserTodos } from '../../hooks/useUserTodos'
 import { useUserProfile } from '../../hooks/useUserProfile'
+import UserTabs from '../UserTabs'
 
 const Profile: FC = () => {
   const [selectedTab, setSelectedTab] = useState<'posts' | 'todos'>('posts')
@@ -20,10 +21,6 @@ const Profile: FC = () => {
   const { posts, findUserPosts } = useUserPosts({ profileId })
   const { todos, findUserTodos } = useUserTodos({ profileId })
 
-  const handleTabChange = (tab: 'posts' | 'todos') => {
-    setSelectedTab(tab)
-  }
-
   useEffect(() => {
     findUserAlbums()
     findUserPosts()
@@ -31,30 +28,23 @@ const Profile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileId])
 
+  const handleTabChange = (tab: 'posts' | 'todos') => {
+    setSelectedTab(tab)
+  }
+
   return (
     <section className='w-full min-h-full flex flex-col justify-start items-center'>
-      {user ? <UserProfileInfo user={user} /> : null}
+      {user ? <UserProfileInfo user={user} /> : <p>Loading user details...</p>}
       {albums ? (
         <UserAlbums
           setShouldRenderGallery={setShouldRenderGallery}
           setCurrentAlbum={setCurrentAlbum}
           albums={albums}
         />
-      ) : null}
-      <div className='flex w-full justify-center px-10 mb-6'>
-        <button
-          className={`mr-2 px-4 py-2 ${
-            selectedTab === 'posts' ? 'bg-black text-white' : 'bg-gray-300'
-          }`}
-          onClick={() => handleTabChange('posts')}>
-          User Posts
-        </button>
-        <button
-          className={`px-4 py-2 ${selectedTab === 'todos' ? 'bg-black text-white' : 'bg-gray-300'}`}
-          onClick={() => handleTabChange('todos')}>
-          User Todos
-        </button>
-      </div>
+      ) : (
+        <p>Loading albums...</p>
+      )}
+      <UserTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
       {selectedTab === 'posts' ? (
         <UserPosts posts={posts || []} />
       ) : (

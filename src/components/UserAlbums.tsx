@@ -60,15 +60,22 @@ const UserAlbums: FC<UserAlbumsProps> = ({
     [albums, startIndex, endIndex]
   )
 
+  const renderChevronButton = (direction: 'left' | 'right', onClick: () => void) => {
+    const isLeft = direction === 'left'
+    const isVisible = isLeft ? isPrevButtonVisible : isNextButtonVisible
+
+    return isVisible ? (
+      <ChevronButton
+        onClick={onClick}
+        className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
+        {isLeft ? <FaChevronLeft className='w-6 h-6' /> : <FaChevronRight className='w-6 h-6' />}
+      </ChevronButton>
+    ) : null
+  }
+
   return (
     <div className='lg:w-[500px] h-[80px] mb-6 flex items-center justify-center'>
-      {isPrevButtonVisible ? (
-        <ChevronButton
-          onClick={showPrevAlbums}
-          className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
-          <FaChevronLeft className='w-6 h-6' />
-        </ChevronButton>
-      ) : null}
+      {renderChevronButton('left', showPrevAlbums)}
       {visibleAlbums.map(album => (
         <AlbumComponent
           key={album.id}
@@ -76,13 +83,7 @@ const UserAlbums: FC<UserAlbumsProps> = ({
           onAlbumClick={() => handleAlbumClick(album.id)}
         />
       ))}
-      {isNextButtonVisible ? (
-        <ChevronButton
-          onClick={showNextAlbums}
-          className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
-          <FaChevronRight className='w-6 h-6' />
-        </ChevronButton>
-      ) : null}
+      {renderChevronButton('right', showNextAlbums)}
     </div>
   )
 }

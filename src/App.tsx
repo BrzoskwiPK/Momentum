@@ -5,7 +5,7 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom'
 import './common.scss'
-import RouteError from './components/RouteError'
+import RouteError from './components/pages/RouteError'
 import Profile from './components/pages/Profile'
 import { FC } from 'react'
 import Feed from './components/pages/Feed'

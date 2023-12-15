@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { fetchPhotosByAlbumId } from '../api/photos'
 
 export const usePhotosByAlbumId = (albumId: number) => {
+  const [isLoading] = useState(true)
   const [photos, setPhotos] = useState<Photo[]>()
   const queryClient = useQueryClient()
 
@@ -18,8 +19,10 @@ export const usePhotosByAlbumId = (albumId: number) => {
       queryFn: () => fetchPhotosByAlbumId(albumId),
     })
 
-    if (data.length > 0) setPhotos(data)
+    if (data.length > 0) {
+      setPhotos(data)
+    }
   }
 
-  return { photos }
+  return { photos, isLoading }
 }

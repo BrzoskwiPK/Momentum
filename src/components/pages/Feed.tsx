@@ -1,19 +1,19 @@
 import { FC } from 'react'
-import AlbumsFeed from '../AlbumsFeed'
 import { useAlbums } from '../../hooks/useAlbums'
-import { Album } from '../../types/types'
+import PageHeader from '../PageHeader'
+import GalleryGrid from '../GalleryGrid'
 
 const Feed: FC = () => {
   const { albums } = useAlbums()
 
+  const addImage = () => {
+    // TBD
+  }
+
   return (
     <section className='w-full flex items-center justify-center flex-col'>
-      {albums?.map((album: Album) => (
-        <div key={album.id} className='w-full flex flex-wrap justify-start'>
-          <p className='w-full my-1'>{album.title}</p>
-          <AlbumsFeed album={album} />
-        </div>
-      ))}
+      <PageHeader page='Feed' item='image' onClick={addImage} />
+      {albums ? <GalleryGrid albums={albums} /> : <p>Loading albums...</p>}
     </section>
   )
 }
