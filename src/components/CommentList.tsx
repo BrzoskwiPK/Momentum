@@ -12,26 +12,27 @@ interface CommentListProps {
 
 const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
   const { users } = useUsers()
-  const { userContext } = useAuthenticatedUser()
+  const { isAuthenticated, userContext } = useAuthenticatedUser()
 
-  let publisher: User
+  let publisher: User | null
 
-  if (users) publisher = getRandomPublisher(users, userContext)
+  if (users) publisher = userContext ? getRandomPublisher(users, userContext) : null
 
   return (
     <>
-      {comments?.map(c => {
-        return (
-          <CommentComponent
-            key={c.id}
-            id={c.id}
-            name={c.name}
-            publisher={publisher}
-            content={c.body}
-            deleteComment={deleteComment}
-          />
-        )
-      })}
+      {isAuthenticated &&
+        comments?.map(c => {
+          return (
+            <CommentComponent
+              key={c.id}
+              id={c.id}
+              name={c.name}
+              publisher={publisher!}
+              content={c.body}
+              deleteComment={deleteComment}
+            />
+          )
+        })}
     </>
   )
 }

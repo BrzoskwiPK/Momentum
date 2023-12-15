@@ -4,9 +4,7 @@ export const classNames = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ')
 }
 
-export const isAuthenticated = (user: Partial<User> | null | undefined) => {
-  return user !== undefined && user !== null
-}
+export const isAuthenticated = (): boolean => Boolean(localStorage.getItem('userInfo'))
 
 export const shuffleArray = <T>(collection: T[]): T[] => {
   if (!collection) return collection

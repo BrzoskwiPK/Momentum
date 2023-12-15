@@ -10,7 +10,6 @@ import Profile from './components/pages/Profile'
 import { FC } from 'react'
 import Feed from './components/pages/Feed'
 import ProtectedRoute from './components/ProtectedRoute'
-import UserContextProvider from './components/UserContextProvider'
 import SignIn from './components/SignIn'
 import Modal from './components/Modal'
 import SearchForm from './components/pages/SearchForm'
@@ -67,11 +66,7 @@ const router = createBrowserRouter(
 )
 
 const App: FC = () => {
-  return (
-    <UserContextProvider>
-      <RouterProvider router={router} />
-    </UserContextProvider>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

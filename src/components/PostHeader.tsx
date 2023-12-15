@@ -1,7 +1,6 @@
 import { FC } from 'react'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 import { User } from '../types/types'
-import CircleIcon from './CircleIcon'
 import Avatar from './Avatar'
 import PostCreatorInfo from './PostCreatorInfo'
 

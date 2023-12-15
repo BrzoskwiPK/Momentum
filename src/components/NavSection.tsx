@@ -37,9 +37,9 @@ const NavSection: FC = () => {
     },
     {
       name: 'Profile',
-      href: `/profile/${userContext.id}`,
-      iconBase: <CircleIcon imageUrl={`./assets/profile-${userContext.id}.jpg`} />,
-      iconActive: <CircleIcon imageUrl={`./assets/profile-${userContext.id}.jpg`} />,
+      href: `/profile/${userContext?.id}`,
+      iconBase: <CircleIcon imageUrl={`./assets/profile-${userContext?.id}.jpg`} />,
+      iconActive: <CircleIcon imageUrl={`./assets/profile-${userContext?.id}.jpg`} />,
       current: true,
     },
     {
@@ -52,14 +52,18 @@ const NavSection: FC = () => {
 
   return (
     <section className='flex flex-col flex-grow justify-start'>
-      {navigation.map((item, index) => (
-        <NavigationPath
-          key={index}
-          path={item}
-          index={index}
-          navigationLength={navigation.length}
-        />
-      ))}
+      {userContext ? (
+        navigation.map((item, index) => (
+          <NavigationPath
+            key={index}
+            path={item}
+            index={index}
+            navigationLength={navigation.length}
+          />
+        ))
+      ) : (
+        <p>Loading user...</p>
+      )}
     </section>
   )
 }

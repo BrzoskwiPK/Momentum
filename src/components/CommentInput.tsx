@@ -14,6 +14,7 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
     <div className='border-t-2 mt-2 pt-4 border-gray-500 px-4 flex'>
       <CircleIcon size={42} imageUrl={`./assets/profile-${userContext?.id}.jpg`} />
       <input
+        name='inputComment'
         type='text'
         className='text w-[40%]'
         placeholder='write a comment...'

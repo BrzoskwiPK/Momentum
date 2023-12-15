@@ -42,7 +42,7 @@ const Profile: FC = () => {
           albums={albums}
         />
       ) : (
-        <p>Loading albums...</p>
+        <p className='pb-4'>Loading albums...</p>
       )}
       <UserTabs selectedTab={selectedTab} handleTabChange={handleTabChange} />
       {selectedTab === 'posts' ? (

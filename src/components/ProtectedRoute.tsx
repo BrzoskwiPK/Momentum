@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
@@ -8,10 +8,21 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }: ProtectedRouteProps) => {
   const { isAuthenticated } = useAuthenticatedUser()
+  const [isReady, setIsReady] = useState(false)
 
-  if (!isAuthenticated) return <Navigate to='/' replace />
+  useEffect(() => {
+    setIsReady(true)
+  }, [])
 
-  return children
+  if (!isReady) {
+    return null
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to='/' replace />
+  }
+
+  return <>{children}</>
 }
 
 export default ProtectedRoute

@@ -1,7 +1,6 @@
-import { Fragment, useRef, useState, FC, useContext } from 'react'
+import { Fragment, useRef, useState, FC } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import UserContext from '../contexts/user-context'
 import { useNavigate } from 'react-router-dom'
 
 interface ModalProps {
@@ -18,13 +17,15 @@ const Modal: FC<ModalProps> = ({
   type = 'normal',
 }: ModalProps) => {
   const [open, setOpen] = useState(true)
-  const userContext = useContext(UserContext)
   const cancelButtonRef = useRef(null)
   const navigate = useNavigate()
   const acceptButtonText = type === 'logout' ? 'Logout' : 'OK'
 
   const handleAccept = () => {
-    if (type === 'logout') userContext?.setUser(null)
+    if (type === 'logout') {
+      localStorage.removeItem('userInfo')
+      navigate('/')
+    }
 
     setOpen(false)
   }

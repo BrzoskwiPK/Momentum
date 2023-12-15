@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import UserContext from '../contexts/user-context'
 import { fetchAllUsers } from '../api/users'
 import { User } from '../types/types'
 
@@ -12,7 +11,6 @@ export const useSignInForm = () => {
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const userContext = useContext(UserContext)
 
   const handleAuthentication = async () => {
     const data = await queryClient.ensureQueryData({ queryKey: ['users'], queryFn: fetchAllUsers })
@@ -26,7 +24,7 @@ export const useSignInForm = () => {
       return
     }
 
-    userContext?.setUser({
+    const user: User = {
       id: authenticatedUser.id,
       name: authenticatedUser.name,
       username: authenticatedUser.username,
@@ -35,7 +33,9 @@ export const useSignInForm = () => {
       phone: authenticatedUser.phone,
       website: authenticatedUser.website,
       company: authenticatedUser.company,
-    })
+    }
+
+    localStorage.setItem('userInfo', JSON.stringify(user))
 
     setFormError('')
     redirectToDashboard()
