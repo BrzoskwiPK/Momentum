@@ -1,8 +1,5 @@
 import { FC } from 'react'
-import PostComponent from '../PostComponent'
-import { shuffleArray } from '../../utils/helpers'
 import { usePosts } from '../../hooks/usePosts'
-import { useUsers } from '../../hooks/useUsers'
 import PageHeader from '../PageHeader'
 import PostsGrid from '../PostsGrid'
 
