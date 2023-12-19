@@ -25,5 +25,5 @@ export const usePhotosByAlbumId = (albumId: number) => {
     }
   }
 
-  return { photos, isLoading }
+  return { photos, isLoading, fetchPhotos }
 }
