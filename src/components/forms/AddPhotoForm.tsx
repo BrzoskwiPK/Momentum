@@ -23,7 +23,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
   const queryClient = useQueryClient()
 
   useEffect(() => {
-    if (isSaved) setTimeout(() => setShowPhotoForm(false), 3000)
+    if (isSaved) setTimeout(() => setShowPhotoForm(false), 2000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSaved])
 
@@ -183,7 +183,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
                   </div>
                   {isSaved ? (
                     <strong className='text-green-500 text-center block mt-1 text-sm'>
-                      An image has been uploaded! You will be redirected in 3 seconds...
+                      An image has been uploaded! You will be redirected in 2 seconds...
                     </strong>
                   ) : null}
                 </div>
