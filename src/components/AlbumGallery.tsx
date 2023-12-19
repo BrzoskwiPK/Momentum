@@ -1,9 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { FC, Fragment, useEffect, useRef, useState } from 'react'
-import ChevronButton from './ChevronButton'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { FC, Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import { Photo } from '../types/types'
 import { fetchPhotosByAlbumId } from '../api/photos'
+import GalleryOverlay from './GalleryOverlay'
 
 interface AlbumGalleryProps {
   currentAlbum: number
@@ -15,36 +14,38 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
   setShouldRenderGallery,
 }: AlbumGalleryProps) => {
   const [open, setOpen] = useState(true)
-  const cancelButtonRef = useRef(null)
-  const dialogRef = useRef<HTMLDivElement | null>(null)
   const [albumPhotos, setAlbumPhotos] = useState<Photo[]>([])
   const [imageSrc, setImageSrc] = useState<string>('')
   const [currentImage, setCurrentImage] = useState<number>(0)
   const [loading, setLoading] = useState(true)
+  const overlayRef = useRef<HTMLDivElement>(null)
+
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (event.target instanceof HTMLButtonElement || event.target instanceof SVGElement) {
+        return
+      }
+
+      if (overlayRef.current && overlayRef.current.contains(event.target as Node)) {
+        handleOverlayClose()
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [overlayRef]
+  )
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [handleClickOutside])
 
   useEffect(() => {
     fetchImages()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentAlbum])
-
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (!e.target || !(e.target instanceof Node)) return
-
-    const isClickableSvg =
-      (e.target as HTMLElement).tagName.toLowerCase() === 'svg' &&
-      !(e.target as HTMLElement).classList.contains('clickable')
-
-    const overlay = dialogRef.current
-    if (
-      overlay &&
-      overlay.contains(e.target as Node) &&
-      (overlay.childNodes[0] as HTMLElement).classList.contains('bg-gray-500') &&
-      !isClickableSvg
-    ) {
-      setShouldRenderGallery(false)
-      setOpen(false)
-    }
-  }
 
   const fetchImages = async () => {
     try {
@@ -62,72 +63,29 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
   }
 
   const handlePrevPhoto = () => {
-    setCurrentImage(prev => prev - 1)
-    setImageSrc(albumPhotos[currentImage].url)
+    setCurrentImage(prev => (prev > 0 ? prev - 1 : prev))
   }
 
   const handleNextPhoto = () => {
-    setCurrentImage(prev => prev + 1)
-    setImageSrc(albumPhotos[currentImage].url)
+    setCurrentImage(prev => (prev < albumPhotos.length - 1 ? prev + 1 : prev))
+  }
+
+  const handleOverlayClose = () => {
+    setShouldRenderGallery(false)
+    setOpen(false)
   }
 
   return (
     <Transition.Root show={open && !loading} as={Fragment}>
-      <Dialog
-        as='div'
-        className='relative z-10'
-        initialFocus={cancelButtonRef}
-        onClick={handleOverlayClick}
-        onClose={() => {}}
-        ref={dialogRef}>
-        <Transition.Child
-          as={Fragment}
-          enter='ease-out duration-300'
-          enterFrom='opacity-0'
-          enterTo='opacity-100'
-          leave='ease-in duration-200'
-          leaveFrom='opacity-100'
-          leaveTo='opacity-0'>
-          <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
-        </Transition.Child>
-
-        <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
-          <div className='flex min-h-full justify-center p-4 text-center items-center sm:p-0'>
-            <ChevronButton
-              onClick={handlePrevPhoto}
-              className={`clickable ${
-                currentImage === 0 ? 'invisible' : ''
-              } w-8 h-8 mr-2 lg:mr-5 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400`}>
-              <FaChevronLeft className='w-4 h-4' />
-            </ChevronButton>
-            <Transition.Child
-              as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
-              enterTo='opacity-100 translate-y-0 sm:scale-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100 translate-y-0 sm:scale-100'
-              leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'>
-              <Dialog.Panel className='h-[200px] w-[200px] lg:h-[600px] lg:w-[600px] sm:h-[300px] sm:w-[300px] flex items-center justify-center relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8'>
-                <div className='relative h-full w-full'>
-                  <img src={imageSrc} alt='' className='h-full w-full object-cover' />
-                  {albumPhotos?.[currentImage] ? (
-                    <div className='absolute top-0 left-0 text-white z-10 pl-2 pt-1'>
-                      <p>{albumPhotos[currentImage].title}</p>
-                    </div>
-                  ) : null}
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
-            <ChevronButton
-              onClick={handleNextPhoto}
-              className={`clickable ${
-                currentImage === albumPhotos.length ? 'invisible' : ''
-              } w-8 h-8 ml-2 lg:ml-5 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400`}>
-              <FaChevronRight className='w-4 h-4' />
-            </ChevronButton>
-          </div>
-        </div>
+      <Dialog as='div' className='relative z-10' onClose={e => {}}>
+        <GalleryOverlay
+          imageSrc={imageSrc}
+          currentImage={currentImage}
+          albumPhotos={albumPhotos}
+          handlePrevPhoto={handlePrevPhoto}
+          handleNextPhoto={handleNextPhoto}
+          overlayRef={overlayRef}
+        />
       </Dialog>
     </Transition.Root>
   )

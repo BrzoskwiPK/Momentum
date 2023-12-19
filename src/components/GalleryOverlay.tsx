@@ -1,25 +1,25 @@
-import { FC, Fragment } from 'react'
+import { FC, Fragment, RefObject } from 'react'
 import { Photo } from '../types/types'
 import { Dialog, Transition } from '@headlessui/react'
 import ChevronButton from './ChevronButton'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 interface GalleryOverlayProps {
-  handleOverlayClick: () => void
   imageSrc: string
   currentImage: number
   albumPhotos: Photo[]
+  overlayRef: RefObject<HTMLDivElement>
   handlePrevPhoto: () => void
   handleNextPhoto: () => void
 }
 
 const GalleryOverlay: FC<GalleryOverlayProps> = ({
-  handleOverlayClick,
   imageSrc,
   currentImage,
   albumPhotos,
   handlePrevPhoto,
   handleNextPhoto,
+  overlayRef,
 }: GalleryOverlayProps) => {
   return (
     <>
@@ -35,7 +35,9 @@ const GalleryOverlay: FC<GalleryOverlayProps> = ({
       </Transition.Child>
 
       <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
-        <div className='flex min-h-full justify-center p-4 text-center items-center sm:p-0'>
+        <div
+          ref={overlayRef}
+          className='flex min-h-full justify-center p-4 text-center items-center sm:p-0'>
           <ChevronButton
             onClick={handlePrevPhoto}
             className={`clickable ${
