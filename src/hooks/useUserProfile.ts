@@ -12,7 +12,11 @@ export const useUserProfile = ({ profileId = '' }: UseUserProfileProps) => {
   const [user, setUser] = useState<User | null>(null)
 
   const findUserInfo = async () => {
-    const data = await queryClient.ensureQueryData({ queryKey: ['users'], queryFn: fetchAllUsers })
+    const data = await queryClient.ensureQueryData({
+      queryKey: ['users'],
+      queryFn: fetchAllUsers,
+      staleTime: 600000,
+    })
 
     const userInfo = data.find(u => u.id === Number(profileId))
 

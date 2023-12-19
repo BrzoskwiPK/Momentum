@@ -16,6 +16,7 @@ export const useUserPosts = ({ profileId = '' }: UseUserPostsProps) => {
       const data = await queryClient.ensureQueryData({
         queryKey: [`userPosts-${profileId}`],
         queryFn: () => fetchUserPosts(Number(profileId)),
+        staleTime: 600000,
       })
 
       if (data.length > 0) setPosts(data)

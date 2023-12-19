@@ -20,8 +20,8 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
 
   return (
     <>
-      {isAuthenticated &&
-        comments?.map(c => {
+      {isAuthenticated && comments ? (
+        comments.map(c => {
           return (
             <CommentComponent
               key={c.id}
@@ -32,7 +32,10 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
               deleteComment={deleteComment}
             />
           )
-        })}
+        })
+      ) : (
+        <p className='p-10'>Loading comments...</p>
+      )}
     </>
   )
 }

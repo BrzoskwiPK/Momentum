@@ -17,6 +17,7 @@ export const usePhotosByAlbumId = (albumId: number) => {
     const data = await queryClient.ensureQueryData({
       queryKey: [`albumsPhotos-${albumId}`],
       queryFn: () => fetchPhotosByAlbumId(albumId),
+      staleTime: 600000,
     })
 
     if (data.length > 0) {

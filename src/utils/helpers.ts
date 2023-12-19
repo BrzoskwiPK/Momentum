@@ -45,7 +45,7 @@ export const fetchData = async (
   fetchFn: () => Promise<any>,
   setData: (data: any) => void
 ) => {
-  const data = await queryClient.ensureQueryData({ queryKey, queryFn: fetchFn })
+  const data = await queryClient.ensureQueryData({ queryKey, queryFn: fetchFn, staleTime: 600000 })
 
   if (data) setData(data)
 }

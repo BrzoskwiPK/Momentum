@@ -19,6 +19,7 @@ export const useData = <T>({ queryKey, fetchFn }: UseDataProps<T>) => {
     const fetchedData = await queryClient.ensureQueryData({
       queryKey,
       queryFn: fetchFn,
+      staleTime: 600000,
     })
 
     if (fetchedData.length > 0) {

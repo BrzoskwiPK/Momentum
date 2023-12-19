@@ -1,11 +1,22 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../utils/constants'
-import { Album } from '../types/types'
+import { Album, Photo } from '../types/types'
 
 // GET https://jsonplaceholder.typicode.com/albums
 export const fetchAllAlbums = async (): Promise<Album[]> => {
   try {
     const response = await axios.get(`${API_BASE_URL}/albums`)
+
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+// POST https://jsonplaceholder.typicode.com/albums/:id
+export const addPhotoByAlbumId = async (albumId: string, photo: Photo) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/albums/${albumId}`, photo)
 
     return response.data
   } catch (error) {

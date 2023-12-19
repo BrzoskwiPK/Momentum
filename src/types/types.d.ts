@@ -73,3 +73,8 @@ export type NavigationItem = {
   iconActive: ReactNode
   current?: boolean
 }
+
+export type OptionProps = {
+  value: string
+  label: string
+}

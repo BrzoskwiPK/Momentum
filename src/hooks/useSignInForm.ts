@@ -13,7 +13,11 @@ export const useSignInForm = () => {
   const queryClient = useQueryClient()
 
   const handleAuthentication = async () => {
-    const data = await queryClient.ensureQueryData({ queryKey: ['users'], queryFn: fetchAllUsers })
+    const data = await queryClient.ensureQueryData({
+      queryKey: ['users'],
+      queryFn: fetchAllUsers,
+      staleTime: 600000,
+    })
 
     const authenticatedUser: User | undefined = data.find(
       user => user.email === email && user.username === username

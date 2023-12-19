@@ -19,6 +19,7 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
     const data = await queryClient.ensureQueryData({
       queryKey: [`comments-${postId}`],
       queryFn: () => fetchCommentsByPostId(postId),
+      staleTime: 600000,
     })
 
     if (data.length > 0) setComments(data)
@@ -28,6 +29,7 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
     const data = await queryClient.ensureQueryData({
       queryKey: ['users'],
       queryFn: fetchAllUsers,
+      staleTime: 600000,
     })
 
     if (data.length > 0) setUsers(data)

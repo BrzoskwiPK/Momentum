@@ -16,6 +16,7 @@ export const useUserTodos = ({ profileId = '' }: UseUserTodosProps) => {
       const data = await queryClient.ensureQueryData({
         queryKey: [`userTodos-${profileId}`],
         queryFn: () => fetchUserTodos(Number(profileId)),
+        staleTime: 600000,
       })
 
       if (data.length > 0) setTodos(data)

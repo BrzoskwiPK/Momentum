@@ -4,7 +4,7 @@ import { Album } from '../types/types'
 import { fetchUserAlbums } from '../api/users'
 
 interface UseUserAlbumsProps {
-  profileId?: string
+  profileId?: string | number
 }
 
 export const useUserAlbums = ({ profileId = '' }: UseUserAlbumsProps) => {
@@ -16,6 +16,7 @@ export const useUserAlbums = ({ profileId = '' }: UseUserAlbumsProps) => {
       const data = await queryClient.ensureQueryData({
         queryKey: [`userAlbums-${profileId}`],
         queryFn: () => fetchUserAlbums(Number(profileId)),
+        staleTime: 600000,
       })
 
       if (data.length > 0) setAlbums(data)

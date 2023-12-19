@@ -17,6 +17,7 @@ export const usePost = ({ postId }: UsePostProps) => {
     const data = await queryClient.ensureQueryData({
       queryKey: [`post-${postId}`],
       queryFn: () => fetchPostById(postId),
+      staleTime: 600000,
     })
 
     setPost(data)
@@ -26,6 +27,7 @@ export const usePost = ({ postId }: UsePostProps) => {
     const data = await queryClient.ensureQueryData({
       queryKey: ['users'],
       queryFn: fetchAllUsers,
+      staleTime: 600000,
     })
 
     if (data.length > 0) setUsers(data)
