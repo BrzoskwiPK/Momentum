@@ -1,8 +1,6 @@
 import React, { FC } from 'react'
-import { Comment, User } from '../types/types'
+import { Comment, CommentPublisher } from '../types/types'
 import CommentComponent from './CommentComponent'
-import { useUsers } from '../hooks/useUsers'
-import { getRandomPublisher } from '../utils/helpers'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 interface CommentListProps {
@@ -11,23 +9,22 @@ interface CommentListProps {
 }
 
 const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
-  const { users } = useUsers()
-  const { isAuthenticated, userContext } = useAuthenticatedUser()
-
-  let publisher: User | null
-
-  if (users) publisher = userContext ? getRandomPublisher(users, userContext) : null
+  const { isAuthenticated } = useAuthenticatedUser()
 
   return (
     <>
       {isAuthenticated && comments ? (
         comments.map(c => {
+          const publisher: CommentPublisher = {
+            email: c.email,
+            id: Math.ceil(Math.random() * 4),
+          }
           return (
             <CommentComponent
               key={c.id}
               id={c.id}
               name={c.name}
-              publisher={publisher!}
+              publisher={publisher}
               content={c.body}
               deleteComment={deleteComment}
             />

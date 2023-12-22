@@ -1,21 +1,17 @@
 import { FC, useMemo } from 'react'
 import { Post } from '../types/types'
-import { shuffleArray } from '../utils/helpers'
 import PostComponent from './PostComponent'
 import { useUsers } from '../hooks/useUsers'
 
 interface PostsGridProps {
   posts: Post[]
+  deletePost: (id: number) => void
 }
 
-const PostsGrid: FC<PostsGridProps> = ({ posts }: PostsGridProps) => {
+const PostsGrid: FC<PostsGridProps> = ({ posts, deletePost }: PostsGridProps) => {
   const { users } = useUsers()
 
-  const memoizedPosts = useMemo(() => shuffleArray(posts), [posts])
-
-  const deletePost = () => {
-    // TBD
-  }
+  const memoizedPosts = useMemo(() => posts, [posts])
 
   return (
     <>

@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import CircleIcon from './CircleIcon'
-import { User } from '../types/types'
+import { CommentPublisher } from '../types/types'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 interface CommentComponentProps {
   id: number
   name: string
-  publisher: User
+  publisher: CommentPublisher
   content: string
   deleteComment: (index: number) => void
 }
@@ -19,14 +19,18 @@ const CommentComponent: FC<CommentComponentProps> = ({
   deleteComment,
 }: CommentComponentProps) => {
   const { userContext } = useAuthenticatedUser()
-  const isUserCommentOwner = userContext?.id === publisher.id
+  const isUserCommentOwner = userContext?.email === publisher?.email
+
+  const imageUrl = isUserCommentOwner
+    ? `./assets/profile-${userContext?.id}.jpg`
+    : `./assets/publisher-${publisher.id}.jpg`
 
   return (
     <div>
       <div className='flex my-2 px-4 pb-1'>
-        <CircleIcon size={38} imageUrl={`./assets/profile-${publisher.id}.jpg`} />
+        <CircleIcon size={38} imageUrl={imageUrl} />
         <div>
-          <p className='font-bold'>{publisher.name}</p>
+          <p className='font-bold'>{isUserCommentOwner ? userContext?.email : publisher.email}</p>
           <p className='text-sm'>{Math.ceil(Math.random() * 10 + 1)} hours ago</p>
         </div>
         {isUserCommentOwner ? (

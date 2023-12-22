@@ -6,10 +6,11 @@ import PostCreatorInfo from './PostCreatorInfo'
 
 interface PostHeaderProps {
   user: User
-  deletePost: () => void
+  postId: number
+  deletePost: (id: number) => void
 }
 
-const PostHeader: FC<PostHeaderProps> = ({ user, deletePost }: PostHeaderProps) => {
+const PostHeader: FC<PostHeaderProps> = ({ user, postId, deletePost }: PostHeaderProps) => {
   const { userContext } = useAuthenticatedUser()
 
   return (
@@ -21,13 +22,13 @@ const PostHeader: FC<PostHeaderProps> = ({ user, deletePost }: PostHeaderProps) 
           {userContext?.id === user.id && (
             <button
               className='bg-red-500 w-[80px] ml-4 rounded-sm text-white py-1 hover:bg-red-400'
-              onClick={deletePost}>
+              onClick={() => deletePost(postId)}>
               DELETE
             </button>
           )}
         </div>
       ) : (
-        <p>Loading autor...</p>
+        <p className='ml-2'>Loading autor...</p>
       )}
     </div>
   )

@@ -36,19 +36,31 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
   }
 
   const deleteComment = (commentId: number) => {
-    setComments(prev => prev?.filter(comment => comment.id !== commentId) || [])
+    const prevComments = queryClient.getQueryData<Comment[]>([`comments-${postId}`]) || []
+    const filteredComments = prevComments.filter(comment => comment.id !== commentId) || []
+
+    queryClient.setQueryData([`comments-${postId}`], filteredComments)
+    queryClient.invalidateQueries({ queryKey: [`comments-${postId}`] })
+
+    fetchComments()
   }
 
   const publishComment = (commentText: string) => {
     const newComment: Comment = {
       postId: postId,
-      id: Math.floor(Math.random() * 10000) + 1,
-      name: userContext?.name || 'Anonymous',
+      id: Math.ceil(Math.random() * 500 + 200),
+      name: 'Pellentesque habitant morbi tristique senectus',
       email: userContext?.email || 'anonymous@example.com',
       body: commentText,
     }
 
-    setComments(prev => [...(prev ?? []), newComment])
+    const prevComments = queryClient.getQueryData<Comment[]>([`comments-${postId}`]) || []
+
+    queryClient.setQueryData([`comments-${postId}`], [...prevComments, newComment])
+
+    queryClient.invalidateQueries({ queryKey: [`comments-${postId}`] })
+
+    fetchComments()
   }
 
   useEffect(() => {

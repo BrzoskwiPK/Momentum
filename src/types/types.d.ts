@@ -15,6 +15,11 @@ export type Comment = {
   body: string
 }
 
+export type CommentPublisher = {
+  email: string
+  id: number
+}
+
 export type Album = {
   userId: number
   id: number

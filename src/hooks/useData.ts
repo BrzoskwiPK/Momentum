@@ -27,5 +27,5 @@ export const useData = <T>({ queryKey, fetchFn }: UseDataProps<T>) => {
     }
   }
 
-  return { data }
+  return { data, fetchData }
 }
