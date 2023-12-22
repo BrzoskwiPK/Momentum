@@ -37,7 +37,7 @@ const NavSection: FC = () => {
     },
     {
       name: 'Profile',
-      href: `/profile/${userContext?.id}`,
+      href: `/profile`,
       iconBase: <CircleIcon imageUrl={`./assets/profile-${userContext?.id}.jpg`} />,
       iconActive: <CircleIcon imageUrl={`./assets/profile-${userContext?.id}.jpg`} />,
       current: true,

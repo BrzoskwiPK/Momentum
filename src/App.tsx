@@ -15,6 +15,7 @@ import Modal from './components/Modal'
 import SearchForm from './components/pages/SearchForm'
 import Posts from './components/pages/Posts'
 import Layout from './components/Layout'
+import OwnProfile from './components/OwnProfile'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <Posts />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/profile'
+        element={
+          <ProtectedRoute>
+            <OwnProfile />
           </ProtectedRoute>
         }
       />
