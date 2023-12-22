@@ -114,6 +114,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
                   name='title'
                   id='title'
                   autoComplete='title'
+                  maxLength={255}
                   required
                   onChange={e => setTitle(e.target.value)}
                   className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
@@ -202,7 +203,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
           <button
             type='submit'
             className={`${
-              file ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
+              file && title && albumId ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
             } leading-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
             Save
           </button>

@@ -24,6 +24,7 @@ const SignInForm: FC<SignInFormProps> = ({
             type='username'
             autoComplete='username'
             required
+            maxLength={50}
             onChange={onUsernameChange}
             className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />
@@ -43,6 +44,7 @@ const SignInForm: FC<SignInFormProps> = ({
             type='email'
             autoComplete='email'
             required
+            maxLength={50}
             onChange={onEmailChange}
             className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
           />

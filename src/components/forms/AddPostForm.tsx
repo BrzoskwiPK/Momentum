@@ -38,7 +38,7 @@ const AddPostForm: FC<AddPostFormProps> = ({ onCancel, setShowPostForm }: AddPos
 
     const post: Post = {
       userId: JSON.parse(userInfo!).id,
-      id: posts.length,
+      id: posts.length + 1,
       title,
       body: content,
     }
@@ -65,6 +65,7 @@ const AddPostForm: FC<AddPostFormProps> = ({ onCancel, setShowPostForm }: AddPos
                   type='text'
                   name='title'
                   id='title'
+                  maxLength={255}
                   autoComplete='title'
                   required
                   onChange={e => setTitle(e.target.value)}
@@ -83,7 +84,7 @@ const AddPostForm: FC<AddPostFormProps> = ({ onCancel, setShowPostForm }: AddPos
                 <textarea
                   name='content'
                   id='content'
-                  maxLength={250}
+                  maxLength={500}
                   autoComplete='content'
                   required
                   onChange={e => setContent(e.target.value)}
