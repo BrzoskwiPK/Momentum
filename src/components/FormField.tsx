@@ -14,7 +14,6 @@ const FormField: FC<FormFieldProps> = ({
   name,
   type = 'text',
   value,
-  defaultValue,
   onChange,
 }: FormFieldProps) => (
   <div className='sm:col-span-2 my-2'>
@@ -26,7 +25,7 @@ const FormField: FC<FormFieldProps> = ({
         type={type}
         name={name}
         id={name}
-        value={value !== '' ? value : defaultValue}
+        value={value}
         onChange={e => onChange(e.target.value)}
         maxLength={50}
         required
