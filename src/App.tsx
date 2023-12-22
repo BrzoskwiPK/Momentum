@@ -5,17 +5,21 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom'
 import './common.scss'
-import RouteError from './components/pages/RouteError'
-import Profile from './components/pages/Profile'
-import { FC } from 'react'
-import Feed from './components/pages/Feed'
+import { FC, Suspense } from 'react'
 import ProtectedRoute from './components/ProtectedRoute'
-import SignIn from './components/SignIn'
-import Modal from './components/Modal'
-import SearchForm from './components/pages/SearchForm'
-import Posts from './components/pages/Posts'
-import Layout from './components/Layout'
-import OwnProfile from './components/OwnProfile'
+
+import { lazy } from 'react'
+import Loading from './components/Loading'
+
+const RouteError = lazy(() => import('./components/pages/RouteError'))
+const Profile = lazy(() => import('./components/pages/Profile'))
+const Feed = lazy(() => import('./components/pages/Feed'))
+const SignIn = lazy(() => import('./components/SignIn'))
+const Modal = lazy(() => import('./components/Modal'))
+const SearchForm = lazy(() => import('./components/pages/SearchForm'))
+const Posts = lazy(() => import('./components/pages/Posts'))
+const Layout = lazy(() => import('./components/Layout'))
+const OwnProfile = lazy(() => import('./components/OwnProfile'))
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,7 +29,9 @@ const router = createBrowserRouter(
         path='/feed'
         element={
           <ProtectedRoute>
-            <Feed />
+            <Suspense fallback={<Loading />}>
+              <Feed />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -33,7 +39,9 @@ const router = createBrowserRouter(
         path='/explore'
         element={
           <ProtectedRoute>
-            <SearchForm />
+            <Suspense fallback={<Loading />}>
+              <SearchForm />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -41,7 +49,9 @@ const router = createBrowserRouter(
         path='/posts'
         element={
           <ProtectedRoute>
-            <Posts />
+            <Suspense fallback={<Loading />}>
+              <Posts />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -49,7 +59,9 @@ const router = createBrowserRouter(
         path='/profile'
         element={
           <ProtectedRoute>
-            <OwnProfile />
+            <Suspense fallback={<Loading />}>
+              <OwnProfile />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -57,7 +69,9 @@ const router = createBrowserRouter(
         path='/profile/:profileId'
         element={
           <ProtectedRoute>
-            <Profile />
+            <Suspense fallback={<Loading />}>
+              <Profile />
+            </Suspense>
           </ProtectedRoute>
         }
       />
@@ -65,11 +79,20 @@ const router = createBrowserRouter(
         path='/logout'
         element={
           <ProtectedRoute>
-            <Modal title='Logout' text='Are you sure you want to logout?' type='logout' />
+            <Suspense fallback={<Loading />}>
+              <Modal title='Logout' text='Are you sure you want to logout?' type='logout' />
+            </Suspense>
           </ProtectedRoute>
         }
       />
-      <Route path='*' element={<RouteError />} />
+      <Route
+        path='*'
+        element={
+          <Suspense fallback={<Loading />}>
+            <RouteError />
+          </Suspense>
+        }
+      />
     </Route>
   )
 )
