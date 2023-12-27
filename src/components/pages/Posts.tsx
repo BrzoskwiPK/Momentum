@@ -5,6 +5,8 @@ import PostsGrid from '../PostsGrid'
 import AddPostForm from '../forms/AddPostForm'
 import { Post } from '../../types/types'
 import { useQueryClient } from '@tanstack/react-query'
+import { createPost } from '../../api/posts'
+import { deletePost as deletePostFn } from '../../api/posts'
 
 const Posts: FC = () => {
   const { posts, fetchData } = usePosts()
@@ -22,7 +24,11 @@ const Posts: FC = () => {
 
   const deletePost = useCallback(
     async (postId: number) => {
-      // FAKE API CALL
+      await queryClient.fetchQuery({
+        queryKey: [`deletePost-${postId}`],
+        queryFn: () => deletePostFn(postId),
+      })
+
       const prevPosts = queryClient.getQueryData<Post[]>(['posts']) || []
 
       queryClient.setQueryData(['posts'], [...prevPosts.filter(post => post.id !== postId)])
@@ -34,8 +40,12 @@ const Posts: FC = () => {
     []
   )
 
-  const addPost = (post: Post) => {
-    // FAKE API CALL + info czy sie dodalo
+  const addPost = async (post: Post) => {
+    await queryClient.fetchQuery({
+      queryKey: [`publishPost-${post.id}`],
+      queryFn: () => createPost(post),
+    })
+
     const prevPosts = queryClient.getQueryData<Post[]>(['posts']) || []
 
     queryClient.setQueryData(['posts'], [...prevPosts, post])

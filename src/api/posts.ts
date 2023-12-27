@@ -25,11 +25,11 @@ export const fetchPostById = async (postId: number): Promise<Post> => {
 }
 
 // POST https://jsonplaceholder.typicode.com/posts
-export const createPost = async (post: Post): Promise<Post> => {
+export const createPost = async (post: Post): Promise<number> => {
   try {
     const response = await axios.post(`${API_BASE_URL}/posts`, post)
 
-    return response.data
+    return response.status
   } catch (error) {
     throw error
   }
@@ -47,9 +47,11 @@ export const updatePost = async (postId: number, updatedPost: Post): Promise<Pos
 }
 
 // DELETE https://jsonplaceholder.typicode.com/posts/:id
-export const deletePost = async (postId: number): Promise<void> => {
+export const deletePost = async (postId: number): Promise<number> => {
   try {
-    await axios.delete(`${API_BASE_URL}/posts/${postId}`)
+    const response = await axios.delete(`${API_BASE_URL}/posts/${postId}`)
+
+    return response.status
   } catch (error) {
     throw error
   }

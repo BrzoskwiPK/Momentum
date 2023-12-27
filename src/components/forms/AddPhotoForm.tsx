@@ -4,6 +4,7 @@ import Select from '../Select'
 import { useUserAlbums } from '../../hooks/useUserAlbums'
 import { OptionProps, Photo } from '../../types/types'
 import { useQueryClient } from '@tanstack/react-query'
+import { addPhotoToAlbum } from '../../api/albums'
 
 interface AddPhotoFormProps {
   onCancel: () => void
@@ -83,8 +84,11 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
       }))
     : []
 
-  const addPhoto = (albumId: string, photo: Photo) => {
-    // FAKE API CALL
+  const addPhoto = async (albumId: string, photo: Photo) => {
+    await queryClient.fetchQuery({
+      queryKey: [`publishPhotoInAlbum-${albumId}`],
+      queryFn: () => addPhotoToAlbum(Number(albumId), photo),
+    })
 
     queryClient.setQueryData([`albumsPhotos-${albumId}`], (prevPhotos: Photo[]) => [
       ...prevPhotos,

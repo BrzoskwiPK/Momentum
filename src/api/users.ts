@@ -36,11 +36,11 @@ export const createUser = async (user: User): Promise<User> => {
 }
 
 // PUT https://jsonplaceholder.typicode.com/users/:id
-export const updateUser = async (userId: number, updatedUser: User): Promise<User> => {
+export const updateUser = async (userId: number, updatedUser: User): Promise<number> => {
   try {
     const response = await axios.put(`${API_BASE_URL}/users/${userId}`, updatedUser)
 
-    return response.data
+    return response.status
   } catch (error) {
     throw error
   }

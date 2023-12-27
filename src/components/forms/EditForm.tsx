@@ -5,6 +5,7 @@ import { FC, FormEvent, useEffect } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useAuthenticatedUser } from '../../hooks/useAuthenticatedUser'
+import { updateUser } from '../../api/users'
 
 const EditForm: FC = () => {
   const queryClient = useQueryClient()
@@ -68,7 +69,12 @@ const EditForm: FC = () => {
 
     localStorage.setItem('userInfo', JSON.stringify(updatedUser))
     window.dispatchEvent(new Event('storage'))
-    // FAKE API CALL
+
+    await queryClient.fetchQuery({
+      queryKey: [`editUserProfile-${userContext.id}`],
+      queryFn: () => updateUser(userContext.id, updatedUser),
+    })
+
     const prevUsers = queryClient.getQueryData<User[]>(['users']) || []
 
     const updatedUsers = prevUsers.map(user => (user.id === updatedUser.id ? updatedUser : user))

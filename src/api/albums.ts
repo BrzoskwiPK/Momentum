@@ -65,3 +65,14 @@ export const deleteAlbum = async (albumId: number): Promise<void> => {
     throw error
   }
 }
+
+// POST https://jsonplaceholder.typicode.com/albums/:id/photos
+export const addPhotoToAlbum = async (albumId: number, photo: Photo): Promise<number> => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/albums/${albumId}/photos`, photo)
+
+    return response.status
+  } catch (error) {
+    throw error
+  }
+}
