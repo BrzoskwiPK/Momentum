@@ -20,7 +20,6 @@ const OwnProfile = lazy(() => import('./components/OwnProfile'))
 const AppRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path='/'
       element={
         <Suspense fallback={<Loading />}>
           <Layout />

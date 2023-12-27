@@ -14,19 +14,25 @@ const OwnProfile: FC = () => {
   const [selectedTab, setSelectedTab] = useState<'posts' | 'todos'>('posts')
   const [shouldRenderGallery, setShouldRenderGallery] = useState<boolean>(false)
   const [currentAlbum, setCurrentAlbum] = useState<number>()
-  const userInfo = localStorage.getItem('userInfo')
+  const [profileId, setProfileId] = useState<string | null>()
+  const [userInfo] = useState<string | null>(localStorage.getItem('userInfo'))
 
-  const { user } = useUserProfile({ profileId: JSON.parse(userInfo!).id })
-  const { albums, findUserAlbums } = useUserAlbums({ profileId: JSON.parse(userInfo!).id })
-  const { posts, findUserPosts } = useUserPosts({ profileId: JSON.parse(userInfo!).id })
-  const { todos, findUserTodos } = useUserTodos({ profileId: JSON.parse(userInfo!).id })
+  const { user } = useUserProfile({ profileId: profileId! })
+  const { albums, findUserAlbums } = useUserAlbums({ profileId: profileId! })
+  const { posts, findUserPosts } = useUserPosts({ profileId: profileId! })
+  const { todos, findUserTodos } = useUserTodos({ profileId: profileId! })
+
+  useEffect(() => {
+    setProfileId(userInfo ? JSON.parse(userInfo).id : null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo])
 
   useEffect(() => {
     findUserAlbums()
     findUserPosts()
     findUserTodos()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userInfo])
+  }, [profileId, userInfo])
 
   const handleTabChange = (tab: 'posts' | 'todos') => {
     setSelectedTab(tab)

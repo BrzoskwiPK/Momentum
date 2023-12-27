@@ -24,6 +24,7 @@ const Modal: FC<ModalProps> = ({
   const handleAccept = () => {
     if (type === 'logout') {
       localStorage.removeItem('userInfo')
+      window.dispatchEvent(new Event('storage'))
       navigate('/')
     }
 

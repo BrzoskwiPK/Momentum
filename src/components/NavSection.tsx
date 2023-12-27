@@ -62,7 +62,7 @@ const NavSection: FC = () => {
           />
         ))
       ) : (
-        <p>Loading user...</p>
+        <p className='w-full flex justify-center'>Loading user...</p>
       )}
     </section>
   )

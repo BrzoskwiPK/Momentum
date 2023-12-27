@@ -19,14 +19,22 @@ export const useUserProfile = ({ profileId = '' }: UseUserProfileProps) => {
     })
 
     const userInfo = data.find(u => u.id === Number(profileId))
-
     if (userInfo) setUser(userInfo)
   }
+
+  useEffect(() => {
+    window.addEventListener('storage', findUserInfo)
+
+    return () => {
+      window.removeEventListener('storage', findUserInfo)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     findUserInfo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileId])
 
-  return { user }
+  return { user, findUserInfo }
 }

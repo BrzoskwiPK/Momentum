@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
@@ -7,15 +7,10 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ children }: ProtectedRouteProps) => {
-  const { isAuthenticated } = useAuthenticatedUser()
-  const [isReady, setIsReady] = useState(false)
+  const { isAuthenticated, isLoading } = useAuthenticatedUser()
 
-  useEffect(() => {
-    setIsReady(true)
-  }, [])
-
-  if (!isReady) {
-    return null
+  if (isLoading) {
+    return <div className='w-full h-full flex justify-center'>Loading...</div>
   }
 
   if (!isAuthenticated) {
