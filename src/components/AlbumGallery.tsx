@@ -22,7 +22,11 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
 
   const handleClickOutside = useCallback(
     (event: MouseEvent) => {
-      if (event.target instanceof HTMLButtonElement || event.target instanceof SVGElement) {
+      if (
+        event.target instanceof HTMLButtonElement ||
+        event.target instanceof SVGElement ||
+        event.target instanceof HTMLImageElement
+      ) {
         return
       }
 
