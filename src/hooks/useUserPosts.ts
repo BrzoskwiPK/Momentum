@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Post } from '../types/types'
 
 interface UseUserPostsProps {
-  profileId?: string
+  profileId?: string | number | null
 }
 
 export const useUserPosts = ({ profileId = '' }: UseUserPostsProps) => {

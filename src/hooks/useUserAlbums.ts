@@ -4,7 +4,7 @@ import { Album } from '../types/types'
 import { fetchUserAlbums } from '../api/users'
 
 interface UseUserAlbumsProps {
-  profileId?: string | number
+  profileId?: string | number | null
 }
 
 export const useUserAlbums = ({ profileId = '' }: UseUserAlbumsProps) => {

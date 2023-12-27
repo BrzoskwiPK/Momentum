@@ -4,7 +4,7 @@ import { Todo } from '../types/types'
 import { useQueryClient } from '@tanstack/react-query'
 
 interface UseUserTodosProps {
-  profileId?: string
+  profileId?: string | number | null
 }
 
 export const useUserTodos = ({ profileId = '' }: UseUserTodosProps) => {

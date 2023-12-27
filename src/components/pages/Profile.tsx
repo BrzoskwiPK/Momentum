@@ -50,11 +50,8 @@ const Profile: FC = () => {
       ) : (
         <UserTodos todos={todos || []} />
       )}
-      {shouldRenderGallery ? (
-        <AlbumGallery
-          setShouldRenderGallery={setShouldRenderGallery}
-          currentAlbum={currentAlbum!}
-        />
+      {shouldRenderGallery && currentAlbum ? (
+        <AlbumGallery setShouldRenderGallery={setShouldRenderGallery} currentAlbum={currentAlbum} />
       ) : null}
     </section>
   )

@@ -44,7 +44,7 @@ const EditForm: FC = () => {
     }
 
     const updatedUser: User = {
-      id: userContext?.id!,
+      id: userContext.id,
       name: `${formData.firstName} ${formData.lastName}`,
       username: formData.username,
       email: formData.email,

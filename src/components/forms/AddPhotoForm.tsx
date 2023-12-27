@@ -17,7 +17,8 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
   const [errors, setErrors] = useState<string | null>(null)
   const [albumId, setAlbumId] = useState<string | null>(null)
   const [isSaved, setIsSaved] = useState<boolean>(false)
-  const authenticatedUserId = JSON.parse(localStorage.getItem('userInfo')!).id
+  const userInfoString = localStorage.getItem('userInfo')
+  const authenticatedUserId = userInfoString ? JSON.parse(userInfoString)?.id : null
   const { albums, findUserAlbums } = useUserAlbums({ profileId: authenticatedUserId })
 
   const queryClient = useQueryClient()

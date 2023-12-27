@@ -17,10 +17,10 @@ const OwnProfile: FC = () => {
   const [profileId, setProfileId] = useState<string | null>()
   const [userInfo] = useState<string | null>(localStorage.getItem('userInfo'))
 
-  const { user } = useUserProfile({ profileId: profileId! })
-  const { albums, findUserAlbums } = useUserAlbums({ profileId: profileId! })
-  const { posts, findUserPosts } = useUserPosts({ profileId: profileId! })
-  const { todos, findUserTodos } = useUserTodos({ profileId: profileId! })
+  const { user } = useUserProfile({ profileId })
+  const { albums, findUserAlbums } = useUserAlbums({ profileId })
+  const { posts, findUserPosts } = useUserPosts({ profileId })
+  const { todos, findUserTodos } = useUserTodos({ profileId })
 
   useEffect(() => {
     setProfileId(userInfo ? JSON.parse(userInfo).id : null)

@@ -29,10 +29,16 @@ const AddPostForm: FC<AddPostFormProps> = ({
 
     if (!title || !content) return
 
+    const userInfoString = localStorage.getItem('userInfo')
+
+    if (!userInfoString) return
+
     const posts = queryClient.getQueryData<Post[]>([`posts`]) || []
 
+    const userInfo = JSON.parse(userInfoString)
+
     const post: Post = {
-      userId: JSON.parse(userInfo!).id,
+      userId: userInfo.id,
       id: posts.length + 1,
       title,
       body: content,

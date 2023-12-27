@@ -4,7 +4,7 @@ import { fetchAllUsers } from '../api/users'
 import { useQueryClient } from '@tanstack/react-query'
 
 interface UseUserProfileProps {
-  profileId?: string
+  profileId?: string | null
 }
 
 export const useUserProfile = ({ profileId = '' }: UseUserProfileProps) => {
