@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { User, Comment } from '../types/types'
+import { User, Comment, CommentWithPublisher } from '../types/types'
 import { useAuthenticatedUser } from './useAuthenticatedUser'
 import { useQueryClient } from '@tanstack/react-query'
 import { fetchCommentsByPostId } from '../api/comments'
@@ -11,7 +11,7 @@ interface UsePostCommentsProps {
 
 export const usePostComments = ({ postId }: UsePostCommentsProps) => {
   const queryClient = useQueryClient()
-  const [comments, setComments] = useState<Comment[]>()
+  const [comments, setComments] = useState<CommentWithPublisher[]>()
   const [users, setUsers] = useState<User[]>()
   const { userContext } = useAuthenticatedUser()
 
@@ -22,7 +22,14 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
       staleTime: 600000,
     })
 
-    if (data.length > 0) setComments(data)
+    if (data.length > 0) {
+      const commentsWithPublisher: CommentWithPublisher[] = data.map((comment, index) => ({
+        ...comment,
+        publisherId: index + 1 >= 4 ? ((index + 1) % 3) + 1 : index + 1,
+        publishDate: index + 1,
+      }))
+      setComments(commentsWithPublisher)
+    }
   }
 
   const fetchUsers = async () => {
@@ -46,12 +53,14 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
   }
 
   const publishComment = (commentText: string) => {
-    const newComment: Comment = {
+    const newComment: CommentWithPublisher = {
       postId: postId,
       id: Math.ceil(Math.random() * 500 + 200),
       name: 'Pellentesque habitant morbi tristique senectus',
       email: userContext?.email || 'anonymous@example.com',
       body: commentText,
+      publisherId: userContext?.id || Math.ceil(Math.random() * 4),
+      publishDate: 0.1,
     }
 
     const prevComments = queryClient.getQueryData<Comment[]>([`comments-${postId}`]) || []

@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { Comment, CommentPublisher } from '../types/types'
+import { CommentWithPublisher } from '../types/types'
 import CommentComponent from './CommentComponent'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 
 interface CommentListProps {
-  comments: Comment[]
+  comments: CommentWithPublisher[]
   deleteComment: (id: number) => void
 }
 
@@ -15,16 +15,14 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
     <>
       {isAuthenticated && comments ? (
         comments.map(c => {
-          const publisher: CommentPublisher = {
-            email: c.email,
-            id: Math.ceil(Math.random() * 4),
-          }
           return (
             <CommentComponent
               key={c.id}
               id={c.id}
+              publisherEmail={c.email}
+              publisherId={c.publisherId}
+              publishDate={c.publishDate}
               name={c.name}
-              publisher={publisher}
               content={c.body}
               deleteComment={deleteComment}
             />

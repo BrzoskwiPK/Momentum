@@ -15,10 +15,15 @@ export type Comment = {
   body: string
 }
 
-export type CommentPublisher = {
-  email: string
-  id: number
+export type Publisher = {
+  publisherId: number
 }
+
+export type PublishDate = {
+  publishDate: number
+}
+
+export type CommentWithPublisher = Comment & Publisher & PublishDate
 
 export type Album = {
   userId: number

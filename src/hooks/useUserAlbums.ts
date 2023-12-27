@@ -9,7 +9,7 @@ interface UseUserAlbumsProps {
 
 export const useUserAlbums = ({ profileId = '' }: UseUserAlbumsProps) => {
   const queryClient = useQueryClient()
-  const [albums, setAlbums] = useState<Album[] | null>(null)
+  const [albums, setAlbums] = useState<Album[] | []>([])
 
   const findUserAlbums = async () => {
     if (profileId) {

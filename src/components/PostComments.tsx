@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import CommentList from './CommentList'
-import { Comment } from '../types/types'
+import { CommentWithPublisher } from '../types/types'
 
 interface PostCommentsProps {
-  comments: Comment[]
+  comments: CommentWithPublisher[]
   deleteComment: (index: number) => void
 }
 

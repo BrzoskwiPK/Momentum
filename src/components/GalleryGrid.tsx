@@ -48,7 +48,7 @@ const GalleryGrid: FC<GalleryGridProps> = ({ albums }: GalleryGridProps) => {
 
   return (
     <>
-      <div className='w-full h-12 flex justify-end mr-12 pt-2'>
+      <div className='w-full h-12 flex justify-end mr-12 pt-3'>
         <Transition.Root show={true} as={Fragment}>
           <Menu as='div' className='relative inline-block text-left'>
             <div>
