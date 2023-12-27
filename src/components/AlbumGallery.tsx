@@ -68,10 +68,12 @@ const AlbumGallery: FC<AlbumGalleryProps> = ({
 
   const handlePrevPhoto = () => {
     setCurrentImage(prev => (prev > 0 ? prev - 1 : prev))
+    setImageSrc(albumPhotos[currentImage].url)
   }
 
   const handleNextPhoto = () => {
     setCurrentImage(prev => (prev < albumPhotos.length - 1 ? prev + 1 : prev))
+    setImageSrc(albumPhotos[currentImage].url)
   }
 
   const handleOverlayClose = () => {
