@@ -1,19 +1,47 @@
 import { User } from '../../types/types'
 import { useEditFormData } from '../../hooks/useEditFormData'
 import FormField from '../FormField'
+import { FC, FormEvent, useEffect } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { useAuthenticatedUser } from '../../hooks/useAuthenticatedUser'
-import { FC } from 'react'
 
-interface EditFormProps {
-  user: Partial<User>
-  handleCancel: () => void
-}
+const EditForm: FC = () => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const { userContext, isLoading } = useAuthenticatedUser()
+  const formData = useEditFormData(userContext)
 
-const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
-  const formData = useEditFormData()
-  const { userContext } = useAuthenticatedUser()
+  useEffect(() => {
+    if (userContext && !isLoading) {
+      formData.setFirstName(userContext.name?.split(' ')[0] || '')
+      formData.setLastName(userContext.name?.split(' ')[1] || '')
+      formData.setUsername(userContext.username || '')
+      formData.setEmail(userContext.email || '')
+      formData.setStreet(userContext.address?.street || '')
+      formData.setCity(userContext.address?.city || '')
+      formData.setSuite(userContext.address?.suite || '')
+      formData.setZipCode(userContext.address?.zipcode || '')
+      formData.setGeoLatitude(userContext.address?.geo?.lat || '')
+      formData.setGeoLongitude(userContext.address?.geo?.lng || '')
+      formData.setPhone(userContext.phone || '')
+      formData.setWebsite(userContext.website || '')
+      formData.setCompanyName(userContext.company?.name || '')
+      formData.setCompanyCatchPhrase(userContext.company?.catchPhrase || '')
+      formData.setCompanyBs(userContext.company?.bs || '')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading])
 
-  const handleSave = () => {
+  const handleCancel = () => navigate(-1)
+
+  const handleSave = async (e: FormEvent) => {
+    e.preventDefault()
+
+    if (!userContext) {
+      return
+    }
+
     const updatedUser: User = {
       id: userContext?.id!,
       name: `${formData.firstName} ${formData.lastName}`,
@@ -37,7 +65,17 @@ const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
         catchPhrase: formData.companyCatchPhrase,
       },
     }
-    console.log(updatedUser)
+
+    localStorage.setItem('userInfo', JSON.stringify(updatedUser))
+    window.dispatchEvent(new Event('storage'))
+    // FAKE API CALL
+    const prevUsers = queryClient.getQueryData<User[]>(['users']) || []
+
+    const updatedUsers = prevUsers.map(user => (user.id === updatedUser.id ? updatedUser : user))
+    queryClient.setQueryData(['users'], updatedUsers)
+    queryClient.invalidateQueries({ queryKey: ['users'] })
+
+    handleCancel()
   }
 
   return (
@@ -49,21 +87,18 @@ const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
             <FormField
               label='Username'
               name='username'
-              defaultValue={user.username}
               value={formData.username}
               onChange={formData.setUsername}
             />
             <FormField
               label='First name'
               name='first-name'
-              defaultValue={user.name?.split(' ')[0]}
               value={formData.firstName}
               onChange={formData.setFirstName}
             />
             <FormField
               label='Last name'
               name='last-name'
-              defaultValue={user.name?.split(' ')[1]}
               value={formData.lastName}
               onChange={formData.setLastName}
             />
@@ -71,21 +106,18 @@ const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
               label='Email address'
               name='email'
               type='email'
-              defaultValue={user.email}
               value={formData.email}
               onChange={formData.setEmail}
             />
             <FormField
               label='Phone'
               name='phone'
-              defaultValue={user.phone}
               value={formData.phone}
               onChange={formData.setPhone}
             />
             <FormField
               label='Website'
               name='website'
-              defaultValue={user.website}
               value={formData.website}
               onChange={formData.setWebsite}
             />
@@ -95,42 +127,31 @@ const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
             <FormField
               label='Street'
               name='street-address'
-              defaultValue={user.address?.street}
               value={formData.street}
               onChange={formData.setStreet}
             />
-            <FormField
-              label='City'
-              name='city'
-              defaultValue={user.address?.city}
-              value={formData.city}
-              onChange={formData.setCity}
-            />
+            <FormField label='City' name='city' value={formData.city} onChange={formData.setCity} />
             <FormField
               label='Suite'
               name='region'
-              defaultValue={user.address?.suite}
               value={formData.suite}
               onChange={formData.setSuite}
             />
             <FormField
               label='ZIP / Postal code'
               name='postal-code'
-              defaultValue={user.address?.zipcode}
               value={formData.zipCode}
               onChange={formData.setZipCode}
             />
             <FormField
               label='Latitude'
               name='geo-lat'
-              defaultValue={user.address?.geo.lat}
               value={formData.geoLatitude}
               onChange={formData.setGeoLatitude}
             />
             <FormField
               label='Longitude'
               name='geo-lng'
-              defaultValue={user.address?.geo.lng}
               value={formData.geoLongitude}
               onChange={formData.setGeoLongitude}
             />
@@ -140,21 +161,18 @@ const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
             <FormField
               label='Company Name'
               name='company-name'
-              defaultValue={user.company?.name}
               value={formData.companyName}
               onChange={formData.setCompanyName}
             />
             <FormField
               label='Company Catch Phrase'
               name='company-phrase'
-              defaultValue={user.company?.catchPhrase}
               value={formData.companyCatchPhrase}
               onChange={formData.setCompanyCatchPhrase}
             />
             <FormField
               label='Company BS'
               name='company-bs'
-              defaultValue={user.company?.bs}
               value={formData.companyBs}
               onChange={formData.setCompanyBs}
             />
@@ -171,7 +189,9 @@ const EditForm: FC<EditFormProps> = ({ user, handleCancel }: EditFormProps) => {
         </button>
         <button
           type='submit'
-          className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+          className={`${
+            formData.saveable ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
+          } rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
           onClick={handleSave}>
           Save
         </button>

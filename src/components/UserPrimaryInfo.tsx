@@ -1,17 +1,17 @@
-import { FC, useState } from 'react'
-import EditForm from './forms/EditForm'
+import { FC } from 'react'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
+import { useNavigate } from 'react-router-dom'
 
 interface UserPrimaryInfoProps {
   username: string
 }
 
 const UserPrimaryInfo: FC<UserPrimaryInfoProps> = ({ username }: UserPrimaryInfoProps) => {
-  const [isEditView, setIsEditView] = useState<boolean>(false)
   const { userContext } = useAuthenticatedUser()
+  const navigate = useNavigate()
 
   const handleEditProfileInfo = () => {
-    setIsEditView(true)
+    navigate('/editProfile')
   }
 
   return (
@@ -23,9 +23,6 @@ const UserPrimaryInfo: FC<UserPrimaryInfoProps> = ({ username }: UserPrimaryInfo
           onClick={handleEditProfileInfo}>
           Edit
         </button>
-      ) : null}
-      {isEditView && userContext ? (
-        <EditForm user={userContext} handleCancel={() => setIsEditView(false)} />
       ) : null}
     </div>
   )

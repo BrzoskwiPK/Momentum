@@ -7,6 +7,7 @@ import { lazy } from 'react'
 import Loading from './components/Loading'
 
 const RouteError = lazy(() => import('./components/pages/RouteError'))
+const EditForm = lazy(() => import('./components/forms/EditForm'))
 const Profile = lazy(() => import('./components/pages/Profile'))
 const Feed = lazy(() => import('./components/pages/Feed'))
 const SignIn = lazy(() => import('./components/SignIn'))
@@ -56,6 +57,16 @@ const AppRouter = createBrowserRouter(
           <ProtectedRoute>
             <Suspense fallback={<Loading />}>
               <OwnProfile />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/editProfile'
+        element={
+          <ProtectedRoute>
+            <Suspense fallback={<Loading />}>
+              <EditForm />
             </Suspense>
           </ProtectedRoute>
         }
