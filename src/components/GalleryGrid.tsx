@@ -24,7 +24,7 @@ const GalleryGrid: FC<GalleryGridProps> = ({ albums }: GalleryGridProps) => {
       )
       .map((album: Album) => (
         <div key={album.id} className='w-full flex flex-wrap justify-start'>
-          <p className='w-full my-1'>
+          <p className='w-full my-1 ml-2 md:ml-4 text-center'>
             <strong>Album: </strong>
             {album.title}
           </p>

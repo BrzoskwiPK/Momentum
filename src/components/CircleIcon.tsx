@@ -10,6 +10,8 @@ const CircleIcon: FC<CircleIconProps> = ({ imageUrl, size = 26 }: CircleIconProp
     width: size,
     height: size,
     borderRadius: '50%',
+    minWidth: '34px',
+    minHeight: '34px',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',

@@ -16,7 +16,7 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
       <input
         name='inputComment'
         type='text'
-        className='text w-[40%]'
+        className='text md:w-[40%] w-[60%]'
         placeholder='write a comment...'
         value={commentText}
         onChange={e => setCommentText(e.target.value)}

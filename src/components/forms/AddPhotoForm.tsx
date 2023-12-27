@@ -101,7 +101,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
   return (
     <form
       onSubmit={handleSubmit}
-      className='h-full md:w-[60%] sm:w-[100%] sm:mt-0 md:mt-4 md:px-0 px-6'>
+      className='h-full md:w-[60%] sm:w-[100%] sm:mt-0 md:mt-4 md:px-0 px-6 py-28'>
       <div className='space-y-2'>
         <div className={`${file ? 'border-b border-gray-900/10' : ''} pb-2`}>
           <h2 className='text-2xl font-semibold leading-7 text-gray-900'>Add Photo</h2>

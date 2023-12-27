@@ -59,6 +59,7 @@ const SearchForm: FC = () => {
         type='text'
         name='search-input'
         placeholder='Search'
+        className='w-[80%] sm:w-[250px]'
         value={searchPhrase}
         onChange={e => setSearchPhrase(e.target.value)}
       />

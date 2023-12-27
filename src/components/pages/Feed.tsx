@@ -3,6 +3,7 @@ import { useAlbums } from '../../hooks/useAlbums'
 import PageHeader from '../PageHeader'
 import GalleryGrid from '../GalleryGrid'
 import AddPhotoForm from '../forms/AddPhotoForm'
+import Loading from '../Loading'
 
 const Feed: FC = () => {
   const { albums } = useAlbums()
@@ -24,7 +25,7 @@ const Feed: FC = () => {
       ) : albums ? (
         <GalleryGrid albums={albums} />
       ) : (
-        <p>Loading albums...</p>
+        <Loading />
       )}
     </section>
   )
