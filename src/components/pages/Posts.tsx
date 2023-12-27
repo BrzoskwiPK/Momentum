@@ -34,11 +34,25 @@ const Posts: FC = () => {
     []
   )
 
+  const addPost = (post: Post) => {
+    // FAKE API CALL + info czy sie dodalo
+    const prevPosts = queryClient.getQueryData<Post[]>(['posts']) || []
+
+    queryClient.setQueryData(['posts'], [...prevPosts, post])
+
+    queryClient.invalidateQueries({ queryKey: ['posts'] })
+    fetchData()
+  }
+
   return (
     <div className='w-full max-h-screen flex flex-col items-center'>
       <PageHeader page='Posts' item='post' onClick={openPostForm} />
       {showPostForm ? (
-        <AddPostForm onCancel={closePhotoForm} setShowPostForm={setShowPostForm} />
+        <AddPostForm
+          onCancel={closePhotoForm}
+          setShowPostForm={setShowPostForm}
+          addPost={addPost}
+        />
       ) : posts ? (
         <PostsGrid posts={posts} deletePost={deletePost} />
       ) : (

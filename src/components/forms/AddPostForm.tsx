@@ -1,14 +1,18 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { FC, useEffect, useState } from 'react'
-import { fetchAllPosts } from '../../api/posts'
 import { Post } from '../../types/types'
 
 interface AddPostFormProps {
   onCancel: () => void
+  addPost: (post: Post) => void
   setShowPostForm: (v: boolean) => void
 }
 
-const AddPostForm: FC<AddPostFormProps> = ({ onCancel, setShowPostForm }: AddPostFormProps) => {
+const AddPostForm: FC<AddPostFormProps> = ({
+  onCancel,
+  setShowPostForm,
+  addPost,
+}: AddPostFormProps) => {
   const [title, setTitle] = useState<string>()
   const [content, setContent] = useState<string>()
   const [isSaved, setIsSaved] = useState<boolean>(false)
@@ -20,21 +24,12 @@ const AddPostForm: FC<AddPostFormProps> = ({ onCancel, setShowPostForm }: AddPos
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSaved])
 
-  const addPost = (post: Post) => {
-    // FAKE API CALL + info czy sie dodalo
-    const prevPosts = queryClient.getQueryData<Post[]>(['posts']) || []
-
-    queryClient.setQueryData(['posts'], [...prevPosts, post])
-
-    queryClient.invalidateQueries({ queryKey: ['posts'] })
-  }
-
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     if (!title || !content) return
 
-    const posts = await fetchAllPosts()
+    const posts = queryClient.getQueryData<Post[]>([`posts`]) || []
 
     const post: Post = {
       userId: JSON.parse(userInfo!).id,
@@ -92,6 +87,11 @@ const AddPostForm: FC<AddPostFormProps> = ({ onCancel, setShowPostForm }: AddPos
                   className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                 />
               </div>
+              {isSaved ? (
+                <strong className='text-green-500 text-center block mt-4 text-sm'>
+                  Your post has been added! You will be redirected in 2 seconds...
+                </strong>
+              ) : null}
             </div>
           </div>
 

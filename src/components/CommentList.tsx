@@ -31,7 +31,7 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
           )
         })
       ) : (
-        <p className='p-10'>Loading comments...</p>
+        <p className='p-10'>There are no comments to display yet...</p>
       )}
     </>
   )

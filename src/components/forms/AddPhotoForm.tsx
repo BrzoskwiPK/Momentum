@@ -4,7 +4,6 @@ import Select from '../Select'
 import { useUserAlbums } from '../../hooks/useUserAlbums'
 import { OptionProps, Photo } from '../../types/types'
 import { useQueryClient } from '@tanstack/react-query'
-import { fetchPhotosByAlbumId } from '../../api/photos'
 
 interface AddPhotoFormProps {
   onCancel: () => void
@@ -18,7 +17,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
   const [albumId, setAlbumId] = useState<string | null>(null)
   const [isSaved, setIsSaved] = useState<boolean>(false)
   const authenticatedUserId = JSON.parse(localStorage.getItem('userInfo')!).id
-  const { albums } = useUserAlbums({ profileId: authenticatedUserId })
+  const { albums, findUserAlbums } = useUserAlbums({ profileId: authenticatedUserId })
 
   const queryClient = useQueryClient()
 
@@ -59,13 +58,13 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
     e.preventDefault()
 
     if (!file || !albums || !albumId) return
-    const album = await fetchPhotosByAlbumId(Number(albumId))
+    const photosInAlbum = queryClient.getQueryData<Photo[]>([`albumsPhotos-${albumId}`]) || []
 
     const url = URL.createObjectURL(file)
     const photo: Photo = {
       albumId: Number(albumId),
       title,
-      id: album.length + 1,
+      id: photosInAlbum.length + 1,
       url: url,
       thumbnailUrl: url,
     }
@@ -73,20 +72,24 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
     if (albumId) {
       setIsSaved(true)
       addPhoto(albumId, photo)
+      findUserAlbums()
     }
   }
 
-  const options: OptionProps[] =
-    albums?.map(album => ({
-      value: String(album.id),
-      label: String(album.id),
-    })) || []
+  const options: OptionProps[] = albums
+    ? albums.map(album => ({
+        value: String(album.id),
+        label: String(album.id),
+      }))
+    : []
 
   const addPhoto = (albumId: string, photo: Photo) => {
-    // FAKE API CALL + info czy sie dodalo
-    const prevPhotos = queryClient.getQueryData<Photo[]>([`albumsPhotos-${albumId}`]) || []
+    // FAKE API CALL
 
-    queryClient.setQueryData([`albumsPhotos-${albumId}`], [...prevPhotos, photo])
+    queryClient.setQueryData([`albumsPhotos-${albumId}`], (prevPhotos: Photo[]) => [
+      ...prevPhotos,
+      photo,
+    ])
 
     queryClient.invalidateQueries({ queryKey: [`albumsPhotos-${albumId}`] })
   }

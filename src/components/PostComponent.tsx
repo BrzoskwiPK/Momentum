@@ -11,7 +11,7 @@ interface PostComponentProps {
   id: number
   title: string
   body: string
-  deletePost: () => void
+  deletePost: (id: number) => void
 }
 
 const PostComponent: FC<PostComponentProps> = ({
@@ -25,9 +25,9 @@ const PostComponent: FC<PostComponentProps> = ({
 
   return (
     <div key={id} className='w-[80%] mt-2 mb-6 border-2 border-black border-solid py-4'>
-      <PostHeader user={user} deletePost={deletePost} />
+      <PostHeader user={user} deletePost={deletePost} postId={id} />
       <PostContent title={title} body={body} />
-      <PostComments comments={comments || []} deleteComment={deleteComment} />
+      <PostComments comments={comments!} deleteComment={deleteComment} />
       <CommentInput onPublishComment={publishComment} />
     </div>
   )
