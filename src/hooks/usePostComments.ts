@@ -28,6 +28,7 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
         publisherId: index + 1 >= 4 ? ((index + 1) % 3) + 1 : index + 1,
         publishDate: index + 1,
       }))
+
       setComments(commentsWithPublisher)
     }
   }
