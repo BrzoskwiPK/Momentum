@@ -43,6 +43,7 @@ export const useSignInForm = () => {
     window.dispatchEvent(new Event('storage'))
 
     setFormError('')
+    redirectToDashboard()
   }
 
   const redirectToDashboard = () => navigate('/feed')
@@ -50,7 +51,6 @@ export const useSignInForm = () => {
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault()
     handleAuthentication()
-    redirectToDashboard()
   }
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)
