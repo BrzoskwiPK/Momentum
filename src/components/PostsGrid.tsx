@@ -14,7 +14,7 @@ const PostsGrid: FC<PostsGridProps> = ({ posts, deletePost }: PostsGridProps) =>
   const memoizedPosts = useMemo(() => posts, [posts])
 
   return (
-    <div className='mt-4 flex flex-col items-center'>
+    <div className='mt-4 flex flex-col items-center w-full'>
       {memoizedPosts ? (
         memoizedPosts.map(post => (
           <PostComponent

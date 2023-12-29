@@ -4,7 +4,7 @@ import NavSection from './NavSection'
 
 const Navigation: FC = () => {
   return (
-    <nav className='h-screen bg-gray-800 text-white flex flex-col w-[72px] md:w-[210px]'>
+    <nav className='max-[400px]:h-12 min-[401px]:h-screen max-[400px]:w-[100vw] min-[401px]:w-[72px] md:w-[210px] bg-gray-800 text-white flex flex-col'>
       <NavLogo />
       <NavSection />
     </nav>

@@ -51,7 +51,7 @@ const NavSection: FC = () => {
   ]
 
   return (
-    <section className='flex flex-col flex-grow justify-start'>
+    <section className='flex min-[401px]:flex-col max-[400px]:flex-row max-[400px]:w-[100vw] overflow-hidden flex-grow justify-start'>
       {userContext ? (
         navigation.map((item, index) => (
           <NavigationPath

@@ -75,8 +75,12 @@ const SearchForm: FC = () => {
             )
           )
         ) : (
-          <div className='flex flex-col items-center justify-center'>
-            <img src='./assets/no-results.png' className='w-36 h-36 md:w-64 md:h-64 my-12' alt='' />
+          <div className='flex flex-col items-center min-[401px]:justify-center max-[400px]:justify-start'>
+            <img
+              src='./assets/no-results.png'
+              className='w-36 h-36 md:w-64 md:h-64 my-12 max-[400px]:mt-36'
+              alt=''
+            />
             <strong className='text-2xl text-center'>No results found...</strong>
             <p className='mt-4 text-center'>
               Try adjusting your search or filter to find what you're looking for.

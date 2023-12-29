@@ -22,14 +22,18 @@ const NavigationPath: FC<NavigationPathProps> = ({
       to={path.href}
       className={classNames(
         path.current ? 'font-bold text-white' : 'font-medium text-gray-300 mt-0.5',
-        'ml-1 md:ml-2 flex flex-row justify-start align-middle text-center hover:bg-gray-700 hover:text-white rounded-md px-5 py-2 text-sm font-medium w-11/12 hover:cursor-pointer transition duration-300 ease-in-out'
+        'max-[400px]:mx-auto min-[401px]:ml-1 md:ml-2 min-[401px]:px-5 py-2 flex flex-row min-[401px]:justify-start max-[400px]:justify-center align-middle text-center hover:bg-gray-700 hover:text-white rounded-md text-sm font-medium w-11/12 hover:cursor-pointer transition duration-300 ease-in-out'
       )}
       aria-current={path.current ? 'page' : undefined}
-      style={{ marginTop: index === navigationLength - 1 ? 'auto' : undefined }}>
-      <span className='my-auto'>
+      style={{
+        marginTop: window.innerWidth >= 401 && index === navigationLength - 1 ? 'auto' : undefined,
+      }}>
+      <span className='my-auto max-[400px]:flex max-[400px]:items-center max-[400px]:justify-center'>
         {location.pathname === path.href ? path.iconActive : path.iconBase}
       </span>
-      <span className='ml-1 my-2 invisible md:visible'>{path.name}</span>
+      <span className='ml-1 my-2 max-[400px]:hidden min-[401px]:invisible md:visible'>
+        {path.name}
+      </span>
     </Link>
   )
 }

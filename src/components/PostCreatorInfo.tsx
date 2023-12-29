@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { User } from '../types/types'
 
 interface PostCreatorInfoProps {
@@ -10,8 +10,10 @@ const PostCreatorInfo: FC<PostCreatorInfoProps> = ({ user }: PostCreatorInfoProp
     <>
       {user ? (
         <div>
-          <p className='font-bold'>{user.name}</p>
-          <p className='text-sm'>{Math.floor(Math.random() * 10) + 1} hours ago</p>
+          <p className='font-bold max-[400px]:text-xs'>{user.name}</p>
+          <p className='text-sm max-[400px]:text-xs max-[400px]:mt-1'>
+            {Math.floor(Math.random() * 10) + 1} hours ago
+          </p>
         </div>
       ) : (
         <p>Loading autor...</p>
