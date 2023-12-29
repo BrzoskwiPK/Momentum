@@ -190,31 +190,35 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
                       Delete
                     </button>
                   </div>
-                  {isSaved ? (
-                    <strong className='text-green-500 text-center block mt-1 text-sm'>
-                      An image has been uploaded! You will be redirected in 2 seconds...
-                    </strong>
-                  ) : null}
                 </div>
               ) : null}
             </div>
           </div>
         </div>
 
-        <div className='mt-6 flex items-center justify-end gap-x-3 !mb-2'>
-          <button
-            type='button'
-            className='text-sm font-semibold leading-6 text-gray-900 rounded-md px-3 py-2 bg-gray-200 hover:bg-gray-100'
-            onClick={onCancel}>
-            Cancel
-          </button>
-          <button
-            type='submit'
-            className={`${
-              file && title && albumId ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
-            } leading-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
-            Save
-          </button>
+        <div className='mt-6 flex flex-col items-center justify-center !mb-2'>
+          <div className='flex items-center w-full justify-end gap-x-3'>
+            <button
+              type='button'
+              className='text-sm font-semibold leading-6 text-gray-900 rounded-md px-3 py-2 bg-gray-200 hover:bg-gray-100'
+              onClick={onCancel}>
+              Cancel
+            </button>
+            <button
+              type='submit'
+              className={`${
+                file && title && albumId ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
+              } leading-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
+              Save
+            </button>
+          </div>
+          <div className='flex items-center w-full justify-center'>
+            {isSaved ? (
+              <strong className='text-green-500 text-center block mt-1 text-sm'>
+                An image has been uploaded! You will be redirected in 2 seconds...
+              </strong>
+            ) : null}
+          </div>
         </div>
       </div>
     </form>

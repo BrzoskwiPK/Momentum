@@ -9,7 +9,7 @@ interface UserProfileInfoProps {
 
 const UserProfileInfo: FC<UserProfileInfoProps> = ({ user }: UserProfileInfoProps) => {
   return (
-    <div className='w-full h-[200px] sm:mb-4 md:mb-0 flex flex-col md:flex-row items-center justify-center mt-4'>
+    <div className='w-full h-[200px] md:mb-0 flex flex-col md:flex-row items-center justify-center mt-4'>
       <UserProfileImage userId={user.id} />
       <UserProfileDetails user={user} />
     </div>

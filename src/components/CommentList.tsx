@@ -13,7 +13,7 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
 
   return (
     <>
-      {isAuthenticated && comments ? (
+      {isAuthenticated && comments.length ? (
         comments.map(c => {
           return (
             <CommentComponent

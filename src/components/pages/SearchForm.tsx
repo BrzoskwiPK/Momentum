@@ -31,7 +31,7 @@ const SearchForm: FC = () => {
   )
 
   return (
-    <div className='w-full h-full flex items-center justify-center flex-col'>
+    <div className='w-full h-full flex items-center justify-center flex-col px-4'>
       <div className='flex flex-col sm:flex-row my-4 mt-10 sm:mt-4'>
         <button
           className={`sm:mr-2 px-4 py-2 rounded-sm ${
@@ -64,14 +64,24 @@ const SearchForm: FC = () => {
         onChange={e => setSearchPhrase(e.target.value)}
       />
       <div className='my-4 h-[80vh] w-full flex flex-wrap justify-center gap-2'>
-        {searchResults.map(result =>
-          selectedTab === 'users' ? (
-            <UserCard key={result.id} user={result as User} />
-          ) : selectedTab === 'photos' ? (
-            <PhotosCard key={result.id} photo={result as Photo} />
-          ) : (
-            <AlbumsCard key={result.id} album={result as Album} />
+        {searchResults.length > 0 ? (
+          searchResults.map(result =>
+            selectedTab === 'users' ? (
+              <UserCard key={result.id} user={result as User} />
+            ) : selectedTab === 'photos' ? (
+              <PhotosCard key={result.id} photo={result as Photo} />
+            ) : (
+              <AlbumsCard key={result.id} album={result as Album} />
+            )
           )
+        ) : (
+          <div className='flex flex-col items-center justify-center'>
+            <img src='./assets/no-results.png' className='w-36 h-36 md:w-64 md:h-64 my-12' alt='' />
+            <strong className='text-2xl text-center'>No results found...</strong>
+            <p className='mt-4 text-center'>
+              Try adjusting your search or filter to find what you're looking for.
+            </p>
+          </div>
         )}
       </div>
     </div>

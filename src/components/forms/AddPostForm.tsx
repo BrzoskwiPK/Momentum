@@ -16,7 +16,6 @@ const AddPostForm: FC<AddPostFormProps> = ({
   const [title, setTitle] = useState<string>()
   const [content, setContent] = useState<string>()
   const [isSaved, setIsSaved] = useState<boolean>(false)
-  const userInfo = localStorage.getItem('userInfo')
   const queryClient = useQueryClient()
 
   useEffect(() => {

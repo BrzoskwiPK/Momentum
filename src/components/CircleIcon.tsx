@@ -5,13 +5,13 @@ interface CircleIconProps {
   size?: number
 }
 
-const CircleIcon: FC<CircleIconProps> = ({ imageUrl, size = 26 }: CircleIconProps) => {
+const CircleIcon: FC<CircleIconProps> = ({ imageUrl, size }: CircleIconProps) => {
   const containerStyle: CSSProperties = {
+    minWidth: !size ? '34px' : '26px',
+    minHeight: !size ? '34px' : '26px',
     width: size,
     height: size,
     borderRadius: '50%',
-    minWidth: '34px',
-    minHeight: '34px',
     overflow: 'hidden',
     display: 'flex',
     alignItems: 'center',
