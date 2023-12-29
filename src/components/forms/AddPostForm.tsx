@@ -92,28 +92,32 @@ const AddPostForm: FC<AddPostFormProps> = ({
                   className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                 />
               </div>
+            </div>
+          </div>
+
+          <div className='mt-6 flex flex-col w-full items-center justify-end gap-x-3 !mb-2'>
+            <div className='self-end'>
+              <button
+                type='button'
+                className='text-sm font-semibold leading-6 text-gray-900 rounded-md px-3 py-2 bg-gray-200 hover:bg-gray-100'
+                onClick={onCancel}>
+                Cancel
+              </button>
+              <button
+                type='submit'
+                className={`${
+                  title && content ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
+                } leading-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
+                Save
+              </button>
+            </div>
+            <div>
               {isSaved ? (
-                <strong className='text-green-500 text-center block mt-4 text-sm'>
+                <strong className='text-indigo-600 text-center block mt-4 text-sm'>
                   Your post has been added! You will be redirected in 2 seconds...
                 </strong>
               ) : null}
             </div>
-          </div>
-
-          <div className='mt-6 flex items-center justify-end gap-x-3 !mb-2'>
-            <button
-              type='button'
-              className='text-sm font-semibold leading-6 text-gray-900 rounded-md px-3 py-2 bg-gray-200 hover:bg-gray-100'
-              onClick={onCancel}>
-              Cancel
-            </button>
-            <button
-              type='submit'
-              className={`${
-                title && content ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
-              } leading-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}>
-              Save
-            </button>
           </div>
         </div>
       </div>

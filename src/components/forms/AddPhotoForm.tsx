@@ -181,7 +181,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
               {file ? (
                 <div className='flex justify-center items-center flex-col'>
                   <div className='flex justify-center items-center w-full'>
-                    <strong className='text-green-500 text-center block mt-1 text-sm'>
+                    <strong className='text-indigo-600 text-center block mt-1 text-sm'>
                       File uploaded: {file.name}
                     </strong>
                     <button
@@ -214,7 +214,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
           </div>
           <div className='flex items-center w-full justify-center'>
             {isSaved ? (
-              <strong className='text-green-500 text-center block mt-1 text-sm'>
+              <strong className='text-indigo-600 text-center block mt-1 text-sm'>
                 An image has been uploaded! You will be redirected in 2 seconds...
               </strong>
             ) : null}
