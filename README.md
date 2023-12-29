@@ -52,6 +52,11 @@ In order to run the application, we will need to:
 In order to run the frontend, navigate to the main directory and run `npm start` command.
 It will start the development server. After some time application should be running. You can check that by visiting [homepage](http://localhost:3000/).
 
+It is necessary to sign in to the application. The user can choose any API user's credentials, but here is an example:
+
+- Username: Samantha
+- Email: Nathan@yesenia.net
+
 #### Contributor
 
 - Gabriel Brzoskwinia
