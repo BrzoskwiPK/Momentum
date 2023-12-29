@@ -65,4 +65,38 @@ It is necessary to sign in to the application. The user can choose any API user'
 
 Here you can find some screenshots that show basic functionality of this application.
 
-TO BE DONE.
+**<p align="center">Sign in page- unauthorized user</p>**
+
+![unauth](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/ef3e7103-18e2-4ca6-8df1-ea0557e0d7a8)
+
+**<p align="center">Profile page</p>**
+
+![profile](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/e2a4edf4-13f7-4871-b415-bb7e1fcc6e96)
+
+**<p align="center">Posts page</p>**
+
+![posts](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/8aa7e489-53c5-46a9-bb1f-53e84ccf7db1)
+
+**<p align="center">Main feed</p>**
+
+![mainfeed](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/5a6cc02e-affa-4380-bf35-34714ab78593)
+
+**<p align="center">Search form</p>**
+
+![searchform](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/a908a5eb-bf92-479d-b1a5-496b5692aa89)
+
+**<p align="center">Adding photo form</p>**
+
+![photo add](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/34df4878-9b84-451e-8233-b3714604660c)
+
+**<p align="center">Adding post form</p>**
+
+![adding posts](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/35db88e3-dc19-4e40-899e-834cbc40eb31)
+
+**<p align="center">404 page</p>**
+
+![404](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/5096823f-b884-482d-a289-40a8825213b3)
+
+**<p align="center">Logout page</p>**
+
+![logout](https://github.com/BrzoskwiPK/ReactWSEI/assets/101000424/864470fd-e2e9-46b1-9de2-e8c39ba72179)
