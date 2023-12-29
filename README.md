@@ -2,6 +2,8 @@
 
 **The Momentum is a final project created for the "Frameworki front-endowe" course.**
 
+There is a possibility to check live application here: https://momentum-olive.vercel.app/
+
 ### Navigation
 
 ---
