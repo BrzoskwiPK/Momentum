@@ -19,9 +19,9 @@ const UserPrimaryInfo: FC<UserPrimaryInfoProps> = ({ username }: UserPrimaryInfo
       <p className='font-bold text-xl'>{username}</p>
       {username === userContext?.username ? (
         <button
-          className='rounded-md bg-indigo-600 ml-3 mt-1 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+          className='rounded-sm w-[60px] bg-indigo-600 ml-3 mt-1 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
           onClick={handleEditProfileInfo}>
-          Edit
+          EDIT
         </button>
       ) : null}
     </div>

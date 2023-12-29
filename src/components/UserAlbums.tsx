@@ -64,13 +64,15 @@ const UserAlbums: FC<UserAlbumsProps> = ({
     const isLeft = direction === 'left'
     const isVisible = isLeft ? isPrevButtonVisible : isNextButtonVisible
 
-    return isVisible ? (
+    return (
       <ChevronButton
         onClick={onClick}
-        className='w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400'>
+        className={`${
+          isVisible ? 'visible' : 'invisible'
+        } w-10 h-10 flex-shrink-0 rounded-full bg-gray-300 text-white flex items-center justify-center ml-2 cursor-pointer transition duration-200 ease-in-out hover:bg-gray-400`}>
         {isLeft ? <FaChevronLeft className='w-6 h-6' /> : <FaChevronRight className='w-6 h-6' />}
       </ChevronButton>
-    ) : null
+    )
   }
 
   return (

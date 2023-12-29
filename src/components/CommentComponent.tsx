@@ -38,7 +38,7 @@ const CommentComponent: FC<CommentComponentProps> = ({
         </div>
         {isUserCommentOwner ? (
           <button
-            className='mx-4 bg-red-500 w-[80px] h-8 rounded-sm text-white py-1 hover:bg-red-400'
+            className='mx-4 bg-red-500 w-[75px] h-8 rounded-sm text-white py-1 hover:bg-red-400'
             onClick={() => deleteComment(id)}>
             DELETE
           </button>

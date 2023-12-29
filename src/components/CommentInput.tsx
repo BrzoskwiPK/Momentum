@@ -22,9 +22,9 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
         onChange={e => setCommentText(e.target.value)}
       />
       <button
-        className='ml-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+        className='ml-3 rounded-sm bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
         onClick={() => onPublishComment(commentText)}>
-        Publish
+        PUBLISH
       </button>
     </div>
   )

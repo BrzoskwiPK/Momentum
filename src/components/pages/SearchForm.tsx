@@ -34,21 +34,21 @@ const SearchForm: FC = () => {
     <div className='w-full h-full flex items-center justify-center flex-col'>
       <div className='flex flex-col sm:flex-row my-4 mt-10 sm:mt-4'>
         <button
-          className={`sm:mr-2 px-4 py-2 ${
+          className={`sm:mr-2 px-4 py-2 rounded-sm ${
             selectedTab === 'users' ? 'bg-black text-white' : 'bg-gray-300'
           }`}
           onClick={() => handleChangeSelectedTab('users')}>
           Find User
         </button>
         <button
-          className={`px-4 py-2 ${
+          className={`px-4 py-2 rounded-sm ${
             selectedTab === 'photos' ? 'bg-black text-white' : 'bg-gray-300'
           }`}
           onClick={() => handleChangeSelectedTab('photos')}>
           Find Photo
         </button>
         <button
-          className={`sm:ml-2 px-4 py-2 ${
+          className={`sm:ml-2 px-4 py-2 rounded-sm ${
             selectedTab === 'albums' ? 'bg-black text-white' : 'bg-gray-300'
           }`}
           onClick={() => handleChangeSelectedTab('albums')}>
@@ -59,7 +59,7 @@ const SearchForm: FC = () => {
         type='text'
         name='search-input'
         placeholder='Search'
-        className='w-[80%] sm:w-[250px]'
+        className='w-[80%] sm:w-[250px] rounded-sm'
         value={searchPhrase}
         onChange={e => setSearchPhrase(e.target.value)}
       />
