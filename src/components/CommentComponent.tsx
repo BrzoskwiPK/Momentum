@@ -33,7 +33,9 @@ const CommentComponent: FC<CommentComponentProps> = ({
       <div className='flex my-2 px-4 pb-1'>
         <CircleIcon size={38} imageUrl={imageUrl} />
         <div>
-          <p className='font-bold'>{isUserCommentOwner ? userContext?.email : publisherEmail}</p>
+          <p className='font-bold max-[400px]:text-xs'>
+            {isUserCommentOwner ? userContext?.email : publisherEmail}
+          </p>
           <p className='text-sm'>{publishDate} hours ago</p>
         </div>
         {isUserCommentOwner ? (
@@ -44,9 +46,9 @@ const CommentComponent: FC<CommentComponentProps> = ({
           </button>
         ) : null}
       </div>
-      <div className='px-[60px] mt-2'>
+      <div className='max-[400px]:px-4 px-[60px] mt-2'>
         <p className='font-semibold mb-1'>{name}</p>
-        <div className=''>{content}</div>
+        <div>{content}</div>
       </div>
     </div>
   )
