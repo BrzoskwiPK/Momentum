@@ -85,7 +85,7 @@ const EditForm: FC = () => {
   }
 
   return (
-    <form className='w-full min-h-[100vh] md:h-[100vh] absolute top-0 left-0 z-50 bg-gray-200 flex items-center flex-col justify-center'>
+    <form className='w-full min-h-[100vh] md:h-[100vh] absolute top-0 left-0 z-50 bg-indigo-100 flex items-center flex-col justify-center'>
       <div className='w-[80%] py-6'>
         <div className='grid grid-cols-1 gap-x-6 md:gap-y-8 sm:grid-cols-2'>
           <div className='md:border-b md:border-gray-900/10 md:pb-6'>
