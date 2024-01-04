@@ -58,7 +58,7 @@ const AddPostForm: FC<AddPostFormProps> = ({
           <div className='mt-10 flex flex-col gap-x-6 gap-y-2 '>
             <div>
               <label htmlFor='title' className='block text-sm font-medium leading-6 text-gray-900'>
-                Title
+                Title <span className='text-red-500 font-bold'>*</span>
               </label>
               <div className='mt-2'>
                 <input
@@ -78,7 +78,7 @@ const AddPostForm: FC<AddPostFormProps> = ({
               <label
                 htmlFor='content'
                 className='block text-sm font-medium leading-6 text-gray-900'>
-                Content
+                Content <span className='text-red-500 font-bold'>*</span>
               </label>
               <div className='mt-2'>
                 <textarea

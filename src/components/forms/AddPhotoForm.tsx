@@ -114,7 +114,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
           <div className='mt-10 flex flex-col gap-x-6 gap-y-2 '>
             <div>
               <label htmlFor='title' className='block text-sm font-medium leading-6 text-gray-900'>
-                Title
+                Title <span className='text-red-500 font-bold'>*</span>
               </label>
               <div className='mt-2'>
                 <input
@@ -134,7 +134,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
               <label
                 htmlFor='albumId'
                 className='block text-sm font-medium leading-6 text-gray-900 mb-1'>
-                Album ID
+                Album ID <span className='text-red-500 font-bold'>*</span>
               </label>
               <Select fieldName='albumId' options={options} setCurrentValue={setAlbumId} />
             </div>
