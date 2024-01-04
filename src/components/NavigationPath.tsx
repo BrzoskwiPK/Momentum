@@ -31,7 +31,10 @@ const NavigationPath: FC<NavigationPathProps> = ({
       <span className='my-auto max-[400px]:flex max-[400px]:items-center max-[400px]:justify-center'>
         {location.pathname === path.href ? path.iconActive : path.iconBase}
       </span>
-      <span className='ml-1 my-2 max-[400px]:hidden min-[401px]:invisible md:visible'>
+      <span
+        className={`${
+          location.pathname === path.href ? 'font-bold' : 'font-normal'
+        } ml-1 my-2 max-[400px]:hidden min-[401px]:invisible md:visible`}>
         {path.name}
       </span>
     </Link>
