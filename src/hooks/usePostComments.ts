@@ -30,6 +30,8 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
       }))
 
       setComments(commentsWithPublisher)
+    } else {
+      setComments([])
     }
   }
 
@@ -43,17 +45,17 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
     if (data.length > 0) setUsers(data)
   }
 
-  const deleteComment = (commentId: number) => {
+  const deleteComment = async (commentId: number) => {
     const prevComments = queryClient.getQueryData<Comment[]>([`comments-${postId}`]) || []
     const filteredComments = prevComments.filter(comment => comment.id !== commentId) || []
 
-    queryClient.setQueryData([`comments-${postId}`], filteredComments)
-    queryClient.invalidateQueries({ queryKey: [`comments-${postId}`] })
+    await queryClient.setQueryData([`comments-${postId}`], filteredComments)
+    await queryClient.invalidateQueries({ queryKey: [`comments-${postId}`] })
 
     fetchComments()
   }
 
-  const publishComment = (commentText: string) => {
+  const publishComment = async (commentText: string) => {
     const newComment: CommentWithPublisher = {
       postId: postId,
       id: Math.ceil(Math.random() * 500 + 200),
@@ -66,9 +68,9 @@ export const usePostComments = ({ postId }: UsePostCommentsProps) => {
 
     const prevComments = queryClient.getQueryData<Comment[]>([`comments-${postId}`]) || []
 
-    queryClient.setQueryData([`comments-${postId}`], [...prevComments, newComment])
+    await queryClient.setQueryData([`comments-${postId}`], [...prevComments, newComment])
 
-    queryClient.invalidateQueries({ queryKey: [`comments-${postId}`] })
+    await queryClient.invalidateQueries({ queryKey: [`comments-${postId}`] })
 
     fetchComments()
   }
