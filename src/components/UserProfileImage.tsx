@@ -8,7 +8,7 @@ const UserProfileImage: FC<UserProfileImageProps> = ({ userId }: UserProfileImag
   <div className='flex-shrink-0 md:mb-0 w-100 h-100 mt-6 lg:mt-0'>
     <img
       src={`../assets/profile-${userId}.jpg`}
-      alt=''
+      alt='Profile avatar'
       className='w-[100px] h-[100px] lg:w-[150px] lg:h-[150px] object-cover rounded-full border-2 border-black'
     />
   </div>

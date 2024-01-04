@@ -55,7 +55,11 @@ const GalleryOverlay: FC<GalleryOverlayProps> = ({
             leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'>
             <Dialog.Panel className='h-[200px] w-[200px] lg:h-[600px] lg:w-[600px] sm:h-[300px] sm:w-[300px] flex items-center justify-center relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8'>
               <div className='relative h-full w-full'>
-                <img src={imageSrc} alt='' className='h-full w-full object-cover' />
+                <img
+                  src={imageSrc}
+                  alt='Random 600x600 img fetched from API'
+                  className='h-full w-full object-cover'
+                />
                 {albumPhotos?.[currentImage] ? (
                   <div className='absolute top-0 left-0 text-white z-10 pl-2 pt-1'>
                     <p>{albumPhotos[currentImage].title}</p>

@@ -79,7 +79,7 @@ const SearchForm: FC = () => {
             <img
               src='./assets/no-results.png'
               className='w-36 h-36 md:w-64 md:h-64 my-12 max-[400px]:mt-36'
-              alt=''
+              alt='Magnifier'
             />
             <strong className='text-2xl text-center'>No results found...</strong>
             <p className='mt-4 text-center'>

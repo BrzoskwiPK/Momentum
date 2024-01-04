@@ -151,7 +151,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
                     <img
                       className='mx-auto h-[250px] w-[250px] object-cover border-2 border-black rounded-md'
                       src={URL.createObjectURL(file)}
-                      alt=''
+                      alt='Newly added file'
                     />
                   ) : (
                     <PhotoIcon className='mx-auto h-12 w-12 text-gray-300' aria-hidden='true' />
