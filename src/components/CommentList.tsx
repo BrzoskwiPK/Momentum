@@ -14,20 +14,22 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
   return (
     <>
       {isAuthenticated && comments.length ? (
-        comments.map(c => {
-          return (
-            <CommentComponent
-              key={c.id}
-              id={c.id}
-              publisherEmail={c.email}
-              publisherId={c.publisherId}
-              publishDate={c.publishDate}
-              name={c.name}
-              content={c.body}
-              deleteComment={deleteComment}
-            />
-          )
-        })
+        comments
+          .sort((a, b) => b.publishDate - a.publishDate)
+          .map(c => {
+            return (
+              <CommentComponent
+                key={c.id}
+                id={c.id}
+                publisherEmail={c.email}
+                publisherId={c.publisherId}
+                publishDate={c.publishDate}
+                name={c.name}
+                content={c.body}
+                deleteComment={deleteComment}
+              />
+            )
+          })
       ) : (
         <p className='p-10'>There are no comments to display yet...</p>
       )}
