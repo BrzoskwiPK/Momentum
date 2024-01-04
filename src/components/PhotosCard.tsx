@@ -11,8 +11,8 @@ const PhotosCard: FC<PhotosCardProps> = ({ photo, onClick }: PhotosCardProps) =>
   return (
     <div className='relative h-[200px] w-[200px] my-5'>
       <img src={photo.url} alt='' className='h-full w-full object-cover' />
-      <div className='absolute top-0 left-0 text-white z-10 pl-2 pt-1'>
-        <p>{photo.title}</p>
+      <div className='absolute h-[35px] w-full top-0 left-0 text-white z-10 flex items-center pl-2'>
+        <p>{photo.title.slice(0, 18)}</p>
       </div>
       {onClick ? (
         <div
