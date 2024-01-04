@@ -143,7 +143,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({ onCancel, setShowPhotoForm }: Add
               <label
                 htmlFor='file-upload'
                 className='block text-sm font-medium leading-6 text-gray-900'>
-                Cover photo
+                Cover photo <span className='text-red-500 font-bold'>*</span>
               </label>
               <div className='mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-8 py-10'>
                 <div className='text-center'>
