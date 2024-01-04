@@ -10,6 +10,11 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
   const { userContext } = useAuthenticatedUser()
   const [commentText, setCommentText] = useState('')
 
+  const handleClick = () => {
+    onPublishComment(commentText)
+    setCommentText('')
+  }
+
   return (
     <div className='border-t-2 mt-2 pt-4 border-gray-500 px-4 flex'>
       <CircleIcon size={42} imageUrl={`./assets/profile-${userContext?.id}.jpg`} />
@@ -23,7 +28,7 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
       />
       <button
         className='ml-3 rounded-sm bg-indigo-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-        onClick={() => onPublishComment(commentText)}>
+        onClick={handleClick}>
         PUBLISH
       </button>
     </div>
