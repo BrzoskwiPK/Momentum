@@ -36,7 +36,9 @@ const CommentComponent: FC<CommentComponentProps> = ({
         <CircleIcon size={38} imageUrl={imageUrl} />
         <div>
           <p className='font-bold max-[400px]:text-xs'>
-            {isUserCommentOwner ? userContext?.name : publisherEmail}
+            {isUserCommentOwner
+              ? userContext?.name
+              : publisherEmail.slice(0, publisherEmail.indexOf('@')).replace(/_|\./, ' ')}
           </p>
           <p className='text-sm'>{publishDate} hours ago</p>
         </div>
