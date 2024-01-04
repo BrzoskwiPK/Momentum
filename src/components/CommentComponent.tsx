@@ -9,6 +9,7 @@ interface CommentComponentProps {
   publisherId: number
   content: string
   publishDate: number
+  addBottomBorder: boolean
   deleteComment: (index: number) => void
 }
 
@@ -20,6 +21,7 @@ const CommentComponent: FC<CommentComponentProps> = ({
   content,
   deleteComment,
   publishDate,
+  addBottomBorder,
 }: CommentComponentProps) => {
   const { userContext } = useAuthenticatedUser()
   const isUserCommentOwner = userContext?.email === publisherEmail
@@ -29,12 +31,12 @@ const CommentComponent: FC<CommentComponentProps> = ({
     : `./assets/publisher-${publisherId}.jpg`
 
   return (
-    <div>
+    <div className={`${addBottomBorder ? 'border-b-4 py-2' : 'pt-2'}`}>
       <div className='flex my-2 px-4 pb-1'>
         <CircleIcon size={38} imageUrl={imageUrl} />
         <div>
           <p className='font-bold max-[400px]:text-xs'>
-            {isUserCommentOwner ? userContext?.email : publisherEmail}
+            {isUserCommentOwner ? userContext?.name : publisherEmail}
           </p>
           <p className='text-sm'>{publishDate} hours ago</p>
         </div>

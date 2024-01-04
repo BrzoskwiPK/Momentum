@@ -16,7 +16,7 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
       {isAuthenticated && comments.length ? (
         comments
           .sort((a, b) => b.publishDate - a.publishDate)
-          .map(c => {
+          .map((c, index, array) => {
             return (
               <CommentComponent
                 key={c.id}
@@ -27,6 +27,7 @@ const CommentList: FC<CommentListProps> = ({ comments, deleteComment }) => {
                 name={c.name}
                 content={c.body}
                 deleteComment={deleteComment}
+                addBottomBorder={index !== array.length - 1}
               />
             )
           })
