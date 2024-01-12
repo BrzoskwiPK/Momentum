@@ -9,7 +9,7 @@ const Layout: FC = () => {
   return (
     <>
       {isAuthenticated ? <Header /> : null}
-      <main className='w-full h-[100vh] overflow-y-scroll'>
+      <main id='mainDocument' className='w-full h-[100vh] overflow-y-scroll'>
         <Outlet />
       </main>
     </>

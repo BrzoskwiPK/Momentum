@@ -8,10 +8,14 @@ const NavLogo: FC = () => {
   const redirectToFeedPage = () => navigate('/feed')
 
   const handleScrollToTop = () => {
-    const targetElement = document.getElementById('page-header')
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' })
-    }
+    const mainDocument = document.getElementById('mainDocument')
+
+    if (mainDocument)
+      mainDocument.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })
   }
 
   return (
