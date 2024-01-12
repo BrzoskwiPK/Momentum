@@ -22,6 +22,8 @@ export const usePhotosByAlbumId = (albumId: number) => {
 
     if (data.length > 0) {
       setPhotos(data)
+    } else {
+      setPhotos([])
     }
   }
 

@@ -3,6 +3,7 @@ import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
 import { User } from '../types/types'
 import Avatar from './Avatar'
 import PostCreatorInfo from './PostCreatorInfo'
+import { MdDelete } from 'react-icons/md'
 
 interface PostHeaderProps {
   user: User
@@ -20,11 +21,11 @@ const PostHeader: FC<PostHeaderProps> = ({ user, postId, deletePost }: PostHeade
       {user && userContext ? (
         <div>
           {userContext?.id === user.id && (
-            <button
-              className='bg-red-500 w-[80px] ml-4 rounded-sm text-white py-1 hover:bg-red-400'
-              onClick={() => deletePost(postId)}>
-              DELETE
-            </button>
+            <MdDelete
+              onClick={() => deletePost(postId)}
+              tabIndex={0}
+              className='w-8 h-8 mx-4 text-red-500 rounded-sm py-1 hover:text-red-600 hover:cursor-pointer absolute top-0 right-0'
+            />
           )}
         </div>
       ) : (

@@ -9,18 +9,18 @@ const UserTabs: FC<UserTabsProps> = ({ selectedTab, handleTabChange }: UserTabsP
   return (
     <div className='flex w-full justify-center px-10 mb-6'>
       <button
-        className={`mr-2 px-4 py-2 rounded-sm ${
-          selectedTab === 'posts' ? 'bg-black text-white' : 'bg-gray-300'
+        className={`mr-2 px-6 py-2 rounded-sm border-b-2  ${
+          selectedTab === 'posts' ? 'border-black' : 'border-gray-400'
         }`}
         onClick={() => handleTabChange('posts')}>
-        User Posts
+        USER POSTS
       </button>
       <button
-        className={`px-4 py-2 rounded-sm ${
-          selectedTab === 'todos' ? 'bg-black text-white' : 'bg-gray-300'
+        className={`px-4 py-2 rounded-sm border-b-2 border-black ${
+          selectedTab === 'todos' ? 'border-black' : 'border-gray-400'
         }`}
         onClick={() => handleTabChange('todos')}>
-        User Todos
+        USER TODOS
       </button>
     </div>
   )

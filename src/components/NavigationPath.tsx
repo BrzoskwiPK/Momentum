@@ -28,7 +28,9 @@ const NavigationPath: FC<NavigationPathProps> = ({
       style={{
         marginTop: window.innerWidth >= 401 && index === navigationLength - 1 ? 'auto' : undefined,
       }}>
-      <span className='my-auto max-[400px]:flex max-[400px]:items-center max-[400px]:justify-center'>
+      <span
+        className='my-auto max-[400px]:flex max-[400px]:items-center max-[400px]:justify-center'
+        aria-label='Menu icon'>
         {location.pathname === path.href ? path.iconActive : path.iconBase}
       </span>
       <span

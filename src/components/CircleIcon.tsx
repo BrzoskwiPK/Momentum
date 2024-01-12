@@ -3,9 +3,14 @@ import { FC, CSSProperties } from 'react'
 interface CircleIconProps {
   imageUrl: string
   size?: number
+  withBorder?: boolean
 }
 
-const CircleIcon: FC<CircleIconProps> = ({ imageUrl, size }: CircleIconProps) => {
+const CircleIcon: FC<CircleIconProps> = ({
+  imageUrl,
+  size,
+  withBorder = true,
+}: CircleIconProps) => {
   const containerStyle: CSSProperties = {
     minWidth: !size ? '34px' : '26px',
     minHeight: !size ? '34px' : '26px',
@@ -16,7 +21,7 @@ const CircleIcon: FC<CircleIconProps> = ({ imageUrl, size }: CircleIconProps) =>
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: '2px solid white',
+    border: withBorder ? '2px solid white' : 'none',
     marginRight: '0.5rem',
     marginLeft: '-0.1rem',
   }

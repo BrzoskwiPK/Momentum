@@ -9,7 +9,7 @@ interface UserCardProps {
 const UserCard: FC<UserCardProps> = ({ user }: UserCardProps) => {
   const navigationLink = `/profile/${user.id}`
   return (
-    <Link key={user.id} to={navigationLink}>
+    <Link key={user.id} to={navigationLink} className='h-[44px] flex items-center'>
       <div className='flex items-center w-[300px] my-3 p-1 hover:bg-slate-100 hover:cursor-pointer'>
         <img
           src={`./assets/profile-${user.id}.jpg`}

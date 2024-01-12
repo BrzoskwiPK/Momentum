@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import CircleIcon from './CircleIcon'
 import { useAuthenticatedUser } from '../hooks/useAuthenticatedUser'
+import { MdDelete } from 'react-icons/md'
 
 interface CommentComponentProps {
   id: number
@@ -32,7 +33,7 @@ const CommentComponent: FC<CommentComponentProps> = ({
 
   return (
     <div className={`${addBottomBorder ? 'border-b-4 py-2' : 'pt-2'}`}>
-      <div className='flex my-2 px-4 pb-1'>
+      <div className='flex my-2 px-4 pb-1 relative'>
         <CircleIcon size={38} imageUrl={imageUrl} />
         <div>
           <p className='font-bold max-[400px]:text-xs'>
@@ -43,11 +44,11 @@ const CommentComponent: FC<CommentComponentProps> = ({
           <p className='text-sm'>{publishDate} hours ago</p>
         </div>
         {isUserCommentOwner ? (
-          <button
-            className='mx-4 bg-red-500 w-[75px] h-8 rounded-sm text-white py-1 hover:bg-red-400'
-            onClick={() => deleteComment(id)}>
-            DELETE
-          </button>
+          <MdDelete
+            onClick={() => deleteComment(id)}
+            tabIndex={0}
+            className='w-8 h-8 mx-4 text-red-500 rounded-sm py-1 hover:text-red-600 hover:cursor-pointer absolute top-0 right-0'
+          />
         ) : null}
       </div>
       <div className='max-[400px]:px-4 px-[60px] mt-2'>

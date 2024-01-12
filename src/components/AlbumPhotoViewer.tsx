@@ -38,6 +38,7 @@ const AlbumPhotoViewer: FC<AlbumPhotoViewerProps> = ({ album }: AlbumPhotoViewer
           key={photo.id}
           photo={photo}
           onClick={isCurrentUserAlbum ? deletePhoto : undefined}
+          photoIndex={album.id * 10 + photo.id}
         />
       ))}
     </div>

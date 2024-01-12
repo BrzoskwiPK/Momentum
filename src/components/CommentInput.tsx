@@ -38,7 +38,8 @@ const CommentInput: FC<CommentInputProps> = ({ onPublishComment }: CommentInputP
         className={`${
           commentText.length === 0 ? 'bg-indigo-100 pointer-events-none' : 'bg-indigo-600'
         } ml-3 rounded-sm px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
-        onClick={handleClick}>
+        onClick={handleClick}
+        tabIndex={commentText.length === 0 ? -1 : 0}>
         PUBLISH
       </button>
     </div>

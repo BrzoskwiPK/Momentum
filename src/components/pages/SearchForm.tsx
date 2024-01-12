@@ -34,22 +34,22 @@ const SearchForm: FC = () => {
     <div className='w-full h-full flex items-center justify-center flex-col px-4'>
       <div className='flex flex-col sm:flex-row my-4 mt-10 sm:mt-4'>
         <button
-          className={`sm:mr-2 px-4 py-2 rounded-sm ${
-            selectedTab === 'users' ? 'bg-black text-white' : 'bg-gray-300'
+          className={`sm:mr-2 px-4 py-2 rounded-sm border-b-2 ${
+            selectedTab === 'users' ? 'border-black' : 'border-gray-400'
           }`}
           onClick={() => handleChangeSelectedTab('users')}>
           Find User
         </button>
         <button
-          className={`px-4 py-2 rounded-sm ${
-            selectedTab === 'photos' ? 'bg-black text-white' : 'bg-gray-300'
+          className={`px-4 py-2 rounded-sm border-b-2 ${
+            selectedTab === 'photos' ? 'border-black' : 'border-gray-400'
           }`}
           onClick={() => handleChangeSelectedTab('photos')}>
           Find Photo
         </button>
         <button
-          className={`sm:ml-2 px-4 py-2 rounded-sm ${
-            selectedTab === 'albums' ? 'bg-black text-white' : 'bg-gray-300'
+          className={`sm:ml-2 px-4 py-2 rounded-sm border-b-2 ${
+            selectedTab === 'albums' ? 'border-black' : 'border-gray-400'
           }`}
           onClick={() => handleChangeSelectedTab('albums')}>
           Find Album
@@ -65,11 +65,11 @@ const SearchForm: FC = () => {
       />
       <div className='my-4 h-[80vh] w-full flex flex-wrap justify-center gap-2'>
         {searchResults.length > 0 ? (
-          searchResults.map(result =>
+          searchResults.map((result, index) =>
             selectedTab === 'users' ? (
               <UserCard key={result.id} user={result as User} />
             ) : selectedTab === 'photos' ? (
-              <PhotosCard key={result.id} photo={result as Photo} />
+              <PhotosCard key={result.id} photo={result as Photo} photoIndex={index + 10} />
             ) : (
               <AlbumsCard key={result.id} album={result as Album} />
             )

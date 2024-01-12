@@ -1,4 +1,4 @@
-import { FC, Fragment, RefObject } from 'react'
+import { FC, Fragment, RefObject, useEffect } from 'react'
 import { Photo } from '../types/types'
 import { Dialog, Transition } from '@headlessui/react'
 import ChevronButton from './ChevronButton'
@@ -21,6 +21,21 @@ const GalleryOverlay: FC<GalleryOverlayProps> = ({
   handleNextPhoto,
   overlayRef,
 }: GalleryOverlayProps) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    event.preventDefault()
+    if (event.key === 'ArrowRight') handleNextPhoto()
+    else if (event.key === 'ArrowLeft') handlePrevPhoto()
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageSrc])
+
   return (
     <>
       <Transition.Child

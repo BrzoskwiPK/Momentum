@@ -16,16 +16,18 @@ const PostsGrid: FC<PostsGridProps> = ({ posts, deletePost }: PostsGridProps) =>
   return (
     <div className='mt-4 flex flex-col items-center w-full'>
       {memoizedPosts ? (
-        memoizedPosts.map(post => (
-          <PostComponent
-            key={post.id}
-            title={post.title}
-            body={post.body}
-            id={post.id}
-            user={users?.find(user => user.id === post.userId)!}
-            deletePost={deletePost}
-          />
-        ))
+        memoizedPosts
+          .sort((a, b) => b.id - a.id)
+          .map(post => (
+            <PostComponent
+              key={post.id}
+              title={post.title}
+              body={post.body}
+              id={post.id}
+              user={users?.find(user => user.id === post.userId)!}
+              deletePost={deletePost}
+            />
+          ))
       ) : (
         <p>Loading posts...</p>
       )}

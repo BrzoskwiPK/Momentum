@@ -198,6 +198,7 @@ const EditForm: FC = () => {
           className={`${
             formData.saveable ? 'hover:bg-indigo-500' : 'disabled pointer-events-none'
           } rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+          tabIndex={formData.saveable ? 0 : -1}
           onClick={handleSave}>
           Save
         </button>

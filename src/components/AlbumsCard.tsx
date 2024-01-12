@@ -17,7 +17,7 @@ const AlbumsCard: FC<AlbumCardProps> = ({ album }: AlbumCardProps) => {
       </p>
       <div className='w-full flex flex-wrap gap-2 justify-center'>
         {photos?.map(photo => (
-          <PhotosCard key={photo.id} photo={photo} />
+          <PhotosCard key={photo.id} photo={photo} photoIndex={album.id * 10 + photo.id} />
         ))}
       </div>
     </div>
